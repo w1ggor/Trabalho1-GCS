@@ -2,6 +2,31 @@
 ## Gerenciamento de Configuração de Software - PUCRS
 Repositório para a prática com Git em Times.
 
+## Estrutura das Branches
+
+Tipos: feature, fix
+
+```bash
+tipo/descricao-separada-por-hifen
+```
+
+Exemplo:
+
+```bash
+git checkout -m feature/adicionar-print
+```
+
+## Padrão de Commits
+Nós usamos o padrão definido pela conversão de commits.
+
+feature
+
+Exemplo:
+```bash
+git commit -m "feature: adicionado o menu na aplicação"
+```
+
+
 ### Requisitos 
 1. Deseja-se um sistema para gerência de custos dos departamentos de uma empresa.
 2. O sistema deverá ser implementado em Java Console /ou/ Web Puro (apenas
