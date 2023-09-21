@@ -44,4 +44,15 @@ public class Custo {
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
+
+    @Override
+    public String toString() {
+        return "Custo: " +
+        "\nValor: " + valor +
+        "\nDescrição: " + descricao +
+        "\nData: " + data +
+        "\nCategoria: " + categoria;
+    }
+
+    
 }
