@@ -5,10 +5,10 @@ import java.util.Scanner;
 public class Menu {
     Scanner sc = new Scanner(System.in);
     List<Funcionario> listaFuncionarios = new ArrayList<>();
-    public void chamaMenu(){
-        System.out.println("Olá, fulano");
+    public void iniciarMenu(){
+        System.out.println("Ola, fulano");
         System.out.println("Selecione uma das opcoes abaixo:");
-        System.out.println("1. Criar usuário");
+        System.out.println("1. Criar funcionario");
         System.out.println("2. Registrar um custo");
         System.out.println("3. Pesquisa de custo");
         System.out.println("4. Excluir custo");
@@ -35,21 +35,7 @@ public class Menu {
             default:
                 System.out.println("Opcao invalida");
         }
-    }
-
-    private void gerarPainelMetricas() {
-        System.out.println("Funcionário ");
-        System.out.println("Valor total dos custos do mês atual R$ ");
-        System.out.println("Valor total dos custos dos ultimos tres meses por departamento: ");
-        System.out.println("Departamento de compras R$ ");
-        System.out.println("Departamento de vendas R$ ");
-        System.out.println("Departamento de expedicao R$ ");
-        System.out.println("Departamento de engenharia R$ ");
-        System.out.println("Departamento de producao R$ ");
-        System.out.println("Funcionarios com a maior soma de custos registrados:");
-        System.out.println("1. ");
-        System.out.println("2. ");
-        System.out.println("3. ");
+        sc.close();
     }
 
     private void excluirCusto() {
@@ -62,7 +48,9 @@ public class Menu {
     }
 
     private void criarFuncionario() {
-        System.out.println("Digite o nome do funcionário:");
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Digite o nome do funcionario:");
         String nome = sc.nextLine();
         System.out.println("Digite o numero de matricula:");
         String nroMatricula = sc.nextLine();
@@ -97,5 +85,21 @@ public class Menu {
                 break;
         }
         listaFuncionarios.add(funcionario);
+        sc.close();
+    }
+
+    private void gerarPainelMetricas() {
+        System.out.println("Funcionario ");
+        System.out.println("Valor total dos custos do mes atual R$ ");
+        System.out.println("Valor total dos custos dos ultimos tres meses por departamento: ");
+        System.out.println("Departamento de compras R$ ");
+        System.out.println("Departamento de vendas R$ ");
+        System.out.println("Departamento de expedicao R$ ");
+        System.out.println("Departamento de engenharia R$ ");
+        System.out.println("Departamento de producao R$ ");
+        System.out.println("Funcionarios com a maior soma de custos registrados:");
+        System.out.println("1. ");
+        System.out.println("2. ");
+        System.out.println("3. ");
     }
 }
