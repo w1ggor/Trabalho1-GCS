@@ -5,8 +5,6 @@ import java.util.Scanner;
 public class Menu {
     Scanner sc = new Scanner(System.in);
     List<Funcionario> listaFuncionarios = new ArrayList<>();
-
-
     public void chamaMenu(){
         System.out.println("Olá, fulano");
         System.out.println("Selecione uma das opcoes abaixo:");
@@ -14,7 +12,7 @@ public class Menu {
         System.out.println("2. Registrar um custo");
         System.out.println("3. Pesquisa de custo");
         System.out.println("4. Excluir custo");
-        System.out.println("5. Metricas");
+        System.out.println("5. Painel de metricas");
 
         int opcao = sc.nextInt();
 
@@ -32,14 +30,26 @@ public class Menu {
                 excluirCusto();
                 break;
             case 5:
-                metricas();
+                gerarPainelMetricas();
                 break;
             default:
                 System.out.println("Opcao invalida");
         }
     }
 
-    private void metricas() {
+    private void gerarPainelMetricas() {
+        System.out.println("Funcionário ");
+        System.out.println("Valor total dos custos do mês atual R$ ");
+        System.out.println("Valor total dos custos dos ultimos tres meses por departamento: ");
+        System.out.println("Departamento de compras R$ ");
+        System.out.println("Departamento de vendas R$ ");
+        System.out.println("Departamento de expedicao R$ ");
+        System.out.println("Departamento de engenharia R$ ");
+        System.out.println("Departamento de producao R$ ");
+        System.out.println("Funcionarios com a maior soma de custos registrados:");
+        System.out.println("1. ");
+        System.out.println("2. ");
+        System.out.println("3. ");
     }
 
     private void excluirCusto() {
