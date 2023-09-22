@@ -35,15 +35,6 @@ public class Funcionario {
         this.departamento = departamento;
     }
 
-    // Enum dos departamentos
-    public enum Departamento {
-        RH,
-        Compras,
-        Vendas,
-        Expedicao,
-        Engenharia,
-        Producao
-    }
 
     @Override
     public String toString() {
