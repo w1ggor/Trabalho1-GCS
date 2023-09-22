@@ -5,12 +5,14 @@ public class Custo {
     private String descricao;
     private LocalDate data;
     private String categoria;
+    private Departamento departamento;
     
-    public Custo(double valor, String descricao, LocalDate data, String categoria){
+    public Custo(double valor, String descricao, LocalDate data, String categoria, Departamento departamento){
         this.valor = valor;
         this.descricao = descricao;
         this.data = data;
         this.categoria = categoria;
+        this.departamento = departamento;
     }
 
     public double getValor() {
@@ -45,12 +47,21 @@ public class Custo {
         this.categoria = categoria;
     }
 
+    public Departamento getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(Departamento departamento) {
+        this.departamento = departamento;
+    }
+
     @Override
     public String toString() {
         return "Custo: " +
         "\nValor: R$" + valor +
         "\nDescrição: " + descricao +
         "\nData: " + data +
-        "\nCategoria: " + categoria;
+        "\nCategoria: " + categoria +
+        "\nDepartamento: " + departamento;
     }
 }
