@@ -26,7 +26,7 @@ public class Menu {
             case 3:
                 pesquisaCusto();
                 break;
-            case 4: 
+            case 4:
                 excluirCusto();
                 break;
             case 5:
@@ -66,19 +66,19 @@ public class Menu {
 
         switch (selecionaDepartamento) {
             case 1:
-                funcionario = new Funcionario(nroMatricula, nome, Funcionario.Departamento.Compras);
+                funcionario = new Funcionario(nroMatricula, nome, Departamento.Compras);
                 break;
             case 2:
-                funcionario = new Funcionario(nroMatricula, nome, Funcionario.Departamento.Vendas);
+                funcionario = new Funcionario(nroMatricula, nome, Departamento.Vendas);
                 break;
             case 3:
-                funcionario = new Funcionario(nroMatricula, nome, Funcionario.Departamento.Expedicao);
+                funcionario = new Funcionario(nroMatricula, nome, Departamento.Expedicao);
                 break;
             case 4:
-                funcionario = new Funcionario(nroMatricula, nome, Funcionario.Departamento.Engenharia);
+                funcionario = new Funcionario(nroMatricula, nome, Departamento.Engenharia);
                 break;
             case 5:
-                funcionario = new Funcionario(nroMatricula, nome, Funcionario.Departamento.Producao);
+                funcionario = new Funcionario(nroMatricula, nome, Departamento.Producao);
                 break;
             default:
                 System.out.println("Opcao invalida.");
