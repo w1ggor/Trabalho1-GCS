@@ -53,6 +53,4 @@ public class Custo {
         "\nData: " + data +
         "\nCategoria: " + categoria;
     }
-
-    
 }
