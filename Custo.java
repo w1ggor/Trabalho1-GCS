@@ -48,7 +48,7 @@ public class Custo {
     @Override
     public String toString() {
         return "Custo: " +
-        "\nValor: " + valor +
+        "\nValor: R$" + valor +
         "\nDescrição: " + descricao +
         "\nData: " + data +
         "\nCategoria: " + categoria;
