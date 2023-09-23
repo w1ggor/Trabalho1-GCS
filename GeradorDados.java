@@ -54,7 +54,7 @@ public class GeradorDados {
                     primeiraLinha = false;
                     continue;
                 }
-                String[] dados = linha.split(",");
+                String[] dados = linha.split(";");
                 Funcionario funcionario = new Funcionario(dados[0], dados[1], parseDepartamento(dados[2]));
                 list.add(funcionario);
             }
@@ -90,7 +90,7 @@ public class GeradorDados {
                     primeiraLinha = false;
                     continue;
                 }
-                String[] dados = linha.split(",");
+                String[] dados = linha.split(";");
                 Custo custo = new Custo(Double.parseDouble(dados[0]), dados[1], parseData(dados[2]), dados[3], parseDepartamento(dados[4]));
                 list.add(custo);
             }
