@@ -18,5 +18,23 @@ public class GeradorDados {
             matricula++;
         }
     }
-    
+
+    public void geraFuncionarios(List<Funcionario> lista, Departamento departamento, String... nomes){
+        String matriculaString;
+        Integer matricula;
+        if (!lista.isEmpty()){
+            matriculaString = lista.get(lista.size()-1).getMatricula();
+            matricula = (Integer.parseInt(matriculaString) + 1);
+
+        } else {
+            matricula = 1;
+        }
+        for (String nome : nomes) {
+            matriculaString = matricula.toString();
+            Funcionario funcionario = new Funcionario(matriculaString, nome, departamento);
+            lista.add(funcionario);
+            matricula++;
+        }
+    }
+
 }
