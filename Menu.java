@@ -47,7 +47,12 @@ public class Menu {
         sc.nextLine();
         System.out.println("Digite a descrição do custo:");
         String descricao = sc.nextLine();
-        
+        for(Custo c : listaCustos){
+            if(c.getDescricao().contains(descricao)){
+                System.out.println(c.toString());
+                return;
+            }
+        }
         System.out.println("Custo não encontrado!");
     }
 
