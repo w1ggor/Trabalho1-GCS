@@ -5,6 +5,8 @@ import java.util.Scanner;
 public class Menu {
     Scanner sc = new Scanner(System.in);
     List<Funcionario> listaFuncionarios = new ArrayList<>();
+    List<Custo> listaCustos = new ArrayList<>();
+    
     public void iniciarMenu(){
         System.out.println("Ola, fulano");
         System.out.println("Selecione uma das opcoes abaixo:");
@@ -42,6 +44,11 @@ public class Menu {
     }
 
     private void pesquisaCusto() {
+        sc.nextLine();
+        System.out.println("Digite a descrição do custo:");
+        String descricao = sc.nextLine();
+        
+        System.out.println("Custo não encontrado!");
     }
 
     private void registrarCusto() {
