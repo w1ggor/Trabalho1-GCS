@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -38,6 +41,26 @@ public class GeradorDados {
         }
     }
 
+    public void geraFuncionarios(List<Funcionario> list, String nomeArquivoCSV){
+        String path = "resources/csv/" + nomeArquivoCSV;
+        String linha;
+
+        try(BufferedReader leitor = new BufferedReader(new FileReader(path))){
+            boolean primeiraLinha = true;
+            while ((linha = leitor.readLine()) != null){
+                if (primeiraLinha){
+                    primeiraLinha = false;
+                    continue;
+                }
+                String[] dados = linha.split(",");
+                Funcionario funcionario = new Funcionario(dados[0], dados[1], identificaDepartamento(dados[2]));
+                list.add(funcionario);
+            }
+        } catch (IOException e){
+            System.out.println("Arquivo não encontrado ou não foi possível converter linha do .csv para funcionário.");
+        }
+    }
+
     public void geraCustos(List<Custo> lista, int quantidadeCustos, int quantidadeDeMesesAtras, Departamento departamento){
         for (int i = 0; i < quantidadeCustos; i++){
             double valor = Math.round(Math.random()*20000.00)/100.00;
@@ -57,5 +80,14 @@ public class GeradorDados {
     private LocalDate getDataAtrasada(int meses){
         LocalDate dataAtual = LocalDate.now();
         return dataAtual.minusMonths(meses);
+    }
+
+    private Departamento identificaDepartamento(String departamentoString){
+        try{
+            return Departamento.valueOf(departamentoString);
+        } catch (Exception e){
+            System.out.println("Não foi identificado nenhum valor correspondente, retornado departamento Expedicao");
+            return Departamento.Expedicao;
+        }
     }
 }
