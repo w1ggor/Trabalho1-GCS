@@ -46,6 +46,14 @@ public class GeradorDados {
         }
     }
 
+    public void geraCustos(List<Custo> lista, int quantidadeCustos, int quantidadeDeMesesAtras, Departamento departamento, String descricao, String categoria){
+        for (int i = 0; i < quantidadeCustos; i++){
+            double valor = Math.round(Math.random()*20000.00)/100.00;
+            Custo custo = new Custo(valor, descricao, getDataAtrasada(quantidadeDeMesesAtras), categoria, departamento);
+            lista.add(custo);
+        }
+    }
+
     private LocalDate getDataAtrasada(int meses){
         LocalDate dataAtual = LocalDate.now();
         return dataAtual.minusMonths(meses);
