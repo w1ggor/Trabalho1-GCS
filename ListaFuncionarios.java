@@ -2,8 +2,10 @@ import java.util.ArrayList;
 import java.util.List;
 public class ListaFuncionarios {
 
+
     private GeradorDados geraLista = new GeradorDados();
     private List<Funcionario> listaFuncionarios = new ArrayList<>();
+
 
 
     public ListaFuncionarios() {
@@ -22,12 +24,14 @@ public class ListaFuncionarios {
         return null;
     }
 
+
     public List<Funcionario> getListaFuncionarios() {
         return this.listaFuncionarios;
     }
 
+
      public String toString(Funcionario funcionario){
         return  "Matrícula: " + funcionario.getMatricula() + "; Nome: " + funcionario.getNome() + "; Departamento: " + funcionario.getDepartamento()+";";
      }
-   
+
 }
