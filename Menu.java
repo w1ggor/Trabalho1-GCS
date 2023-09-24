@@ -6,9 +6,24 @@ public class Menu {
     Scanner sc = new Scanner(System.in);
     ListaFuncionarios listaFuncionarios = new ListaFuncionarios();
     List<Custo> listaCustos = new ArrayList<>();
-    
+    int id = 0;
     public void iniciarMenu(){
-        System.out.println("Ola, fulano");
+        
+        do{
+            for (Funcionario f : listaFuncionarios.getListaFuncionarios()) {
+                System.out.println(listaFuncionarios.toString(f)+ "\n");
+               
+            }
+            System.out.println("Informe o numero de matricula do funcionario que deseja acessar: ");
+            id = sc.nextInt();
+
+            if(listaFuncionarios.getFuncionarioByMatricula(id) == null){
+                System.out.println("----- Matricula Inválida! Informe uma matrícula correta!-----\n");
+                id = 0;
+            }               
+        }while(id == 0);
+
+        System.out.println("Ola, " + listaFuncionarios.getFuncionarioByMatricula(id).getNome());
         System.out.println("Selecione uma das opcoes abaixo:");
         System.out.println("1. Criar funcionario");
         System.out.println("2. Registrar um custo");
