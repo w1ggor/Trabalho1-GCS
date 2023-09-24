@@ -115,9 +115,10 @@ public class Menu {
     }
 
     private void gerarPainelMetricas() {
-        System.out.println(listaFuncionarios.getFuncionarioByMatricula(id).getNome());
+        System.out.println("\n---------------\n" + listaFuncionarios.getFuncionarioByMatricula(id).getNome());
         System.out.printf("\nValor total dos custos do mês atual -> R$ %.2f\n", listaCustos.somaCustosMes(LocalDate.now()));
         System.out.println("\nValor total dos custos dos últimos 3 meses por departamento: ");
+        System.out.printf("\n   Departamento de RH -> R$ %.2f", listaCustos.somaCustosDepartamento(Departamento.RH));
         System.out.printf("\n   Departamento de compras -> R$ %.2f", listaCustos.somaCustosDepartamento(Departamento.Compras));
         System.out.printf("\n   Departamento de vendas -> R$ %.2f", listaCustos.somaCustosDepartamento(Departamento.Vendas));
         System.out.printf("\n   Departamento de expedicao -> R$ %.2f", listaCustos.somaCustosDepartamento(Departamento.Expedicao));
@@ -127,5 +128,6 @@ public class Menu {
         System.out.println("1. ");
         System.out.println("2. ");
         System.out.println("3. ");
+        System.out.println("---------------");
     }
 }
