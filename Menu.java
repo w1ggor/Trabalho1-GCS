@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -6,8 +7,8 @@ public class Menu {
     Scanner sc = new Scanner(System.in);
     List<Funcionario> listaFuncionarios = new ArrayList<>();
     List<Custo> listaCustos = new ArrayList<>();
-    
-    public void iniciarMenu(){
+
+    public void iniciarMenu() {
         System.out.println("Ola, fulano");
         System.out.println("Selecione uma das opcoes abaixo:");
         System.out.println("1. Criar funcionario");
@@ -15,6 +16,7 @@ public class Menu {
         System.out.println("3. Pesquisa de custo");
         System.out.println("4. Excluir custo");
         System.out.println("5. Painel de metricas");
+        System.out.println("6. Editar custo");
 
         int opcao = sc.nextInt();
 
@@ -34,10 +36,77 @@ public class Menu {
             case 5:
                 gerarPainelMetricas();
                 break;
+            case 6:
+                editarCusto();
+                break;
             default:
                 System.out.println("Opcao invalida");
         }
         sc.close();
+    }
+
+    private void editarCusto() {
+        Scanner in = new Scanner(System.in);
+        int op = 0;
+        System.out.println("Informe a descrição do custo que deseja editar: ");
+        String descricao = in.nextLine();
+        if(listaCustos.size() == 0) {
+            System.out.println("Não há custos para alterar!");
+        } else {
+            System.out.println("eae");
+            for (Custo c : listaCustos) {
+                if (c.getDescricao().contains(descricao)) {
+                    System.out.println("Custo encontrado, selecione oque deseja editar: ");
+                    System.out.println("1. Valor");
+                    System.out.println("2. Descrição");
+                    System.out.println("3. Data");
+                    System.out.println("4. Categoria");
+                    System.out.println("5. Departamento");
+                    System.out.println("6. Editar custo");
+                    op = sc.nextInt();
+
+                    switch (op) {
+                        case 1:
+                            System.out.println("Informe o novo valor: ");
+                            double valor = sc.nextDouble();
+                            c.setValor(valor);
+                            System.out.println("Valor atualizado!");
+                            break;
+                        case 2:
+                            System.out.println("Informe a nova descrição: ");
+                            String desc = in.nextLine();
+                            c.setDescricao(desc);
+                            System.out.println("Descrição atualizada!");
+                            break;
+                        case 3:
+                            System.out.println("Informe a nova data: ");
+                            System.out.println("Ano: ");
+                            int ano = in.nextInt();
+                            System.out.println("Mês: ");
+                            int mes = in.nextInt();
+                            System.out.println("Dia: ");
+                            int dia = in.nextInt();
+                            LocalDate data = LocalDate.of(ano, mes, dia);
+                            c.setData(data);
+                            System.out.println("Data atualizada!");
+                            break;
+                        case 4:
+                            System.out.println("Informe a nova categoria: ");
+                            String categoria = in.nextLine();
+                            c.setCategoria(categoria);
+                            System.out.println("Categoria atualizada!");
+                            break;
+                        case 5:
+                            System.out.println("Informe o novo departamento: ");
+                            break;
+                        default: System.out.println("Opção inválida!");
+                    }
+
+                } else {
+                    System.out.println("Custo não encontrado");
+                }
+            }
+        }
     }
 
     private void excluirCusto() {
@@ -47,8 +116,8 @@ public class Menu {
         sc.nextLine();
         System.out.println("Digite a descrição do custo:");
         String descricao = sc.nextLine();
-        for(Custo c : listaCustos){
-            if(c.getDescricao().contains(descricao)){
+        for (Custo c : listaCustos) {
+            if (c.getDescricao().contains(descricao)) {
                 System.out.println(c.toString());
                 return;
             }
