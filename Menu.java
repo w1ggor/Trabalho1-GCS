@@ -7,7 +7,7 @@ public class Menu {
     Scanner sc = new Scanner(System.in);
     List<Funcionario> listaFuncionarios = new ArrayList<>();
     List<Custo> listaCustos = new ArrayList<>();
-
+    
     public void iniciarMenu() {
         System.out.println("Ola, fulano");
         System.out.println("Selecione uma das opcoes abaixo:");
@@ -53,7 +53,6 @@ public class Menu {
         if(listaCustos.size() == 0) {
             System.out.println("Não há custos para alterar!");
         } else {
-            System.out.println("eae");
             for (Custo c : listaCustos) {
                 if (c.getDescricao().contains(descricao)) {
                     System.out.println("Custo encontrado, selecione oque deseja editar: ");
@@ -98,6 +97,35 @@ public class Menu {
                             break;
                         case 5:
                             System.out.println("Informe o novo departamento: ");
+                            System.out.println("1. RH");
+                            System.out.println("2. Compras");
+                            System.out.println("3. Vendas");
+                            System.out.println("4. Expedição");
+                            System.out.println("5. Engenharia");
+                            System.out.println("6. Produção");
+                            int dep = in.nextInt();
+                            switch(dep) {
+                                case 1:
+                                    c.setDepartamento(Departamento.RH);
+                                    break;
+                                case 2:
+                                    c.setDepartamento(Departamento.Compras);
+                                    break;
+                                case 3:
+                                    c.setDepartamento(Departamento.Vendas);
+                                    break;
+                                case 4:
+                                    c.setDepartamento(Departamento.Expedicao);
+                                    break;
+                                case 5: 
+                                    c.setDepartamento(Departamento.Engenharia);
+                                    break;
+                                case 6:
+                                    c.setDepartamento(Departamento.Producao);
+                                    break;
+                                default:
+                                    System.out.println("Opção inválida!");
+                            }
                             break;
                         default: System.out.println("Opção inválida!");
                     }
@@ -107,6 +135,7 @@ public class Menu {
                 }
             }
         }
+        in.close();
     }
 
     private void excluirCusto() {
