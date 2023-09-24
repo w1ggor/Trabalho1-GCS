@@ -4,8 +4,8 @@ import java.util.Scanner;
 public class Menu {
     Scanner sc = new Scanner(System.in);
     ListaFuncionarios listaFuncionarios = new ListaFuncionarios();
+    listaCustos listaCustos = new listaCustos();
 
-    List<Custo> listaCustos = new ArrayList<>();
     int id = 0;
     public void iniciarMenu(){
         
@@ -115,7 +115,7 @@ public class Menu {
     }
 
     private void gerarPainelMetricas() {
-        System.out.println("Funcionário ");
+        System.out.println(listaFuncionarios.getFuncionarioByMatricula(id).getNome());
         System.out.printf("\nValor total dos custos do mês atual -> R$ %.2f\n", listaCustos.somaCustosMes(LocalDate.now()));
         System.out.println("\nValor total dos custos dos últimos 3 meses por departamento: ");
         System.out.printf("\n   Departamento de compras -> R$ %.2f", listaCustos.somaCustosDepartamento(Departamento.Compras));
