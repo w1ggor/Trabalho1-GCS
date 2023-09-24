@@ -2,8 +2,10 @@ import java.util.ArrayList;
 import java.util.List;
 public class ListaFuncionarios {
 
-    GeradorDados geraLista = new GeradorDados();
-    List<Funcionario> listaFuncionarios = new ArrayList<>();
+
+    private GeradorDados geraLista = new GeradorDados();
+    private List<Funcionario> listaFuncionarios = new ArrayList<>();
+
 
 
     public ListaFuncionarios() {
@@ -14,14 +16,22 @@ public class ListaFuncionarios {
         listaFuncionarios.add(funcionario);
     }
 
+    public Funcionario getFuncionarioByMatricula(int matricula){
+        for (Funcionario funcionario : listaFuncionarios) {
+            if(Integer.parseInt(funcionario.getMatricula()) == matricula)
+                return funcionario;
+        }
+        return null;
+    }
+
 
     public List<Funcionario> getListaFuncionarios() {
         return this.listaFuncionarios;
     }
 
-    public void setListaFuncionarios(List<Funcionario> listaFuncionarios) {
-        this.listaFuncionarios = listaFuncionarios;
-    }
 
-   
+     public String toString(Funcionario funcionario){
+        return  "Matrícula: " + funcionario.getMatricula() + "; Nome: " + funcionario.getNome() + "; Departamento: " + funcionario.getDepartamento()+";";
+     }
+
 }
