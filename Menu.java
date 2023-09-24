@@ -1,20 +1,19 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Menu {
     Scanner sc = new Scanner(System.in);
-    List<Funcionario> listaFuncionarios = new ArrayList<>();
-    List<Custo> listaCustos = new ArrayList<>();
+    ListaFuncionarios listaFuncionarios = new ListaFuncionarios();
+    listaCustos listaCustos = new listaCustos();
     
     public void iniciarMenu(){
-        System.out.println("Ola, fulano");
-        System.out.println("Selecione uma das opcoes abaixo:");
-        System.out.println("1. Criar funcionario");
+        System.out.println("Olá, fulano");
+        System.out.println("Selecione uma das opcões abaixo:");
+        System.out.println("1. Criar funcionário");
         System.out.println("2. Registrar um custo");
         System.out.println("3. Pesquisa de custo");
         System.out.println("4. Excluir custo");
-        System.out.println("5. Painel de metricas");
+        System.out.println("5. Painel de métricas");
 
         int opcao = sc.nextInt();
 
@@ -26,7 +25,7 @@ public class Menu {
                 registrarCusto();
                 break;
             case 3:
-                pesquisaCusto();
+                pesquisaCustoMenu();
                 break;
             case 4:
                 excluirCusto();
@@ -43,17 +42,16 @@ public class Menu {
     private void excluirCusto() {
     }
 
-    private void pesquisaCusto() {
+    private void pesquisaCustoMenu() {
         sc.nextLine();
         System.out.println("Digite a descrição do custo:");
         String descricao = sc.nextLine();
-        for(Custo c : listaCustos){
-            if(c.getDescricao().contains(descricao)){
-                System.out.println(c.toString());
-                return;
-            }
+        Custo aux = listaCustos.pesquisaCusto(descricao);
+        if (aux != null) {
+            System.out.println(aux.toString());
+        } else {
+            System.out.println("Custo não encontrado.");
         }
-        System.out.println("Custo não encontrado!");
     }
 
     private void registrarCusto() {
@@ -96,20 +94,20 @@ public class Menu {
                 System.out.println("Opcao invalida.");
                 break;
         }
-        listaFuncionarios.add(funcionario);
+        listaFuncionarios.AddFuncionario(funcionario);
         sc.close();
     }
 
     private void gerarPainelMetricas() {
-        System.out.println("Funcionario ");
-        System.out.println("Valor total dos custos do mes atual R$ ");
-        System.out.println("Valor total dos custos dos ultimos tres meses por departamento: ");
-        System.out.println("Departamento de compras R$ ");
-        System.out.println("Departamento de vendas R$ ");
-        System.out.println("Departamento de expedicao R$ ");
-        System.out.println("Departamento de engenharia R$ ");
-        System.out.println("Departamento de producao R$ ");
-        System.out.println("Funcionarios com a maior soma de custos registrados:");
+        System.out.println("Funcionário ");
+        System.out.printf("\nValor total dos custos do mês atual -> R$ %.2f\n", listaCustos.somaCustosMes(LocalDate.now()));
+        System.out.println("\nValor total dos custos dos últimos 3 meses por departamento: ");
+        System.out.printf("\n   Departamento de compras -> R$ %.2f", listaCustos.somaCustosDepartamento(Departamento.Compras));
+        System.out.printf("\n   Departamento de vendas -> R$ %.2f", listaCustos.somaCustosDepartamento(Departamento.Vendas));
+        System.out.printf("\n   Departamento de expedicao -> R$ %.2f", listaCustos.somaCustosDepartamento(Departamento.Expedicao));
+        System.out.printf("\n   Departamento de engenharia -> R$ %.2f", listaCustos.somaCustosDepartamento(Departamento.Engenharia));
+        System.out.printf("\n   Departamento de producao -> R$ %.2f\n", listaCustos.somaCustosDepartamento(Departamento.Producao));
+        System.out.println("\nFuncionários com a maior soma de custos registrados:\n");
         System.out.println("1. ");
         System.out.println("2. ");
         System.out.println("3. ");
