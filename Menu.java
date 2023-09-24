@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Menu {
     Scanner sc = new Scanner(System.in);
-    List<Funcionario> listaFuncionarios = new ArrayList<>();
+    ListaFuncionarios listaFuncionarios = new ListaFuncionarios();
     List<Custo> listaCustos = new ArrayList<>();
     
     public void iniciarMenu(){
@@ -96,7 +96,7 @@ public class Menu {
                 System.out.println("Opcao invalida.");
                 break;
         }
-        listaFuncionarios.add(funcionario);
+        listaFuncionarios.AddFuncionario(funcionario);
         sc.close();
     }
 
