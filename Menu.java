@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.util.Scanner;
+import java.util.EnumSet;
 
 public class Menu {
     Scanner sc = new Scanner(System.in);
@@ -30,6 +31,7 @@ public class Menu {
         System.out.println("3. Pesquisa de custo");
         System.out.println("4. Excluir custo");
         System.out.println("5. Painel de métricas");
+        System.out.println("6. Editar departamentos");
 
         int opcao = sc.nextInt();
 
@@ -48,6 +50,9 @@ public class Menu {
                 break;
             case 5:
                 gerarPainelMetricas();
+                break;
+            case 6:
+                editarDepartamentos();
                 break;
             default:
                 System.out.println("Opcao invalida");
@@ -129,5 +134,52 @@ public class Menu {
         System.out.println("2. ");
         System.out.println("3. ");
         System.out.println("---------------");
+    }
+
+    private void editarDepartamentos(){
+        Scanner sc = new Scanner(System.in);
+        int opcao;
+        do {
+            System.out.println("\n---------- Editar Departamentos ----------\n");
+            System.out.println("1. Remover departamento");
+            System.out.println("2. Mostrar departamentos");
+            System.out.print("Digite a opção desejada: ");
+            opcao = sc.nextInt();
+            if (opcao != 1 && opcao != 2) System.out.println("Opção inválida!");
+        } while (opcao != 1 && opcao != 2);
+        
+        switch (opcao) {
+            case 1:
+                removerDepartamento();
+                break;
+            case 2:
+                mostrarDepartamentos();
+                break;
+            default:
+                System.out.println("Opção inválida!");
+                break;
+        }
+        sc.close();
+    }
+
+    private void removerDepartamento(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Digite o nome do departamento que deseja remover: ");
+        String nome = sc.nextLine();
+        EnumSet<Departamento> departamentos = EnumSet.allOf(Departamento.class);
+        if (departamentos.remove(Departamento.valueOf(nome))){
+            System.out.println("Departamento removido com sucesso!");
+        } else {
+            System.out.println("Departamento não existe!");
+        }
+        sc.close();
+    }
+
+    private void mostrarDepartamentos(){
+        EnumSet<Departamento> departamentos = EnumSet.allOf(Departamento.class);
+        System.out.println("Departamentos: ");
+        for (Departamento departamento : departamentos) {
+            System.out.println(departamento);
+        }
     }
 }
