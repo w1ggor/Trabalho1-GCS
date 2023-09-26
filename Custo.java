@@ -5,13 +5,15 @@ public class Custo {
     private String descricao;
     private LocalDate data;
     private String categoria;
+    private Funcionario funcionario;
     private Departamento departamento;
     
-    public Custo(double valor, String descricao, LocalDate data, String categoria, Departamento departamento){
+    public Custo(double valor, String descricao, LocalDate data, String categoria, Funcionario funcionario, Departamento departamento){
         this.valor = valor;
         this.descricao = descricao;
         this.data = data;
         this.categoria = categoria;
+        this.funcionario = funcionario;
         this.departamento = departamento;
     }
 
@@ -47,6 +49,14 @@ public class Custo {
         this.categoria = categoria;
     }
 
+    public Funcionario getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
+    }
+
     public Departamento getDepartamento() {
         return departamento;
     }
@@ -62,6 +72,7 @@ public class Custo {
         "\nDescrição: " + descricao +
         "\nData: " + data +
         "\nCategoria: " + categoria +
+        "\nFuncionário responsável: " + funcionario.getNome() +
         "\nDepartamento: " + departamento;
     }
 }
