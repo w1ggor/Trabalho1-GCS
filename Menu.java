@@ -1,13 +1,11 @@
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
     Scanner sc = new Scanner(System.in);
 
-    List<Funcionario> listaFuncionarios = new ArrayList<>();
-    List<Custo> listaCustos = new ArrayList<>();
+    ListaFuncionarios listaFuncionarios = new ListaFuncionarios();
+    ListaCustos listaCustos = new ListaCustos();
 
     int id = 0;
     public void iniciarMenu(){
@@ -15,7 +13,6 @@ public class Menu {
         do{
             for (Funcionario f : listaFuncionarios.getListaFuncionarios()) {
                 System.out.println(listaFuncionarios.toString(f)+ "\n");
-               
             }
             System.out.println("Informe o numero de matricula do funcionario que deseja acessar: ");
             id = sc.nextInt();
@@ -67,10 +64,10 @@ public class Menu {
         int op = 0;
         System.out.println("Informe a descrição do custo que deseja editar: ");
         String descricao = in.nextLine();
-        if(listaCustos.size() == 0) {
+        if(listaCustos.getListaCustos().size() == 0) {
             System.out.println("Não há custos para alterar!");
         } else {
-            for (Custo c : listaCustos) {
+            for (Custo c : listaCustos.listaCustos) {
                 if (c.getDescricao().contains(descricao)) {
                     System.out.println("Custo encontrado, selecione oque deseja editar: ");
                     System.out.println("1. Valor");
@@ -163,7 +160,7 @@ public class Menu {
         System.out.println("Digite a descrição do custo:");
         String descricao = sc.nextLine();
 
-      for (Custo c : listaCustos) {
+      for (Custo c : listaCustos.listaCustos) {
             if (c.getDescricao().contains(descricao)) {
                 System.out.println(c.toString());
                 return;
