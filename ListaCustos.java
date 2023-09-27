@@ -2,11 +2,13 @@ import java.util.ArrayList;
 import java.time.LocalDate;
 
 public class ListaCustos {
-    GeradorDados geraCustos = new GeradorDados();
-    ArrayList<Custo> listaCustos = new ArrayList<>();
+    private static GeradorDados geraCustos = new GeradorDados();
+    private static ArrayList<Custo> listaCustos = new ArrayList<>();
 
     public ListaCustos() {
-        geraCustos.geraCustos(listaCustos, "custos.csv");
+        if (listaCustos.isEmpty()){
+            geraCustos.geraCustos(listaCustos, "custos.csv");
+        }
     }
 
     public void AddCusto(Custo custo) {

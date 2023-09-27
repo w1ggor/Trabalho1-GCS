@@ -3,13 +3,15 @@ import java.util.List;
 public class ListaFuncionarios {
 
 
-    private GeradorDados geraLista = new GeradorDados();
-    private List<Funcionario> listaFuncionarios = new ArrayList<>();
+    private static GeradorDados geraLista = new GeradorDados();
+    private static List<Funcionario> listaFuncionarios = new ArrayList<>();
 
 
 
     public ListaFuncionarios() {
-        geraLista.geraFuncionarios(listaFuncionarios, "funcionarios.csv");       
+        if (listaFuncionarios.isEmpty()){
+            geraLista.geraFuncionarios(listaFuncionarios, "funcionarios.csv");
+        }
     }
  
     public void AddFuncionario(Funcionario funcionario){

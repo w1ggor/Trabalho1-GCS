@@ -67,7 +67,7 @@ public class Menu {
         if(listaCustos.getListaCustos().size() == 0) {
             System.out.println("Não há custos para alterar!");
         } else {
-            for (Custo c : listaCustos.listaCustos) {
+            for (Custo c : listaCustos.getListaCustos()) {
                 if (c.getDescricao().contains(descricao)) {
                     System.out.println("Custo encontrado, selecione oque deseja editar: ");
                     System.out.println("1. Valor");
@@ -160,7 +160,7 @@ public class Menu {
         System.out.println("Digite a descrição do custo:");
         String descricao = sc.nextLine();
 
-      for (Custo c : listaCustos.listaCustos) {
+      for (Custo c : listaCustos.getListaCustos()) {
             if (c.getDescricao().contains(descricao)) {
                 System.out.println(c.toString());
                 return;
