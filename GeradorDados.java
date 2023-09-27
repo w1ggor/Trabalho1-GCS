@@ -63,24 +63,26 @@ public class GeradorDados {
         }
     }
 
-    public void geraCustos(List<Custo> lista, int quantidadeCustos, int quantidadeDeMesesAtras, Departamento departamento){
+    public void geraCustos(List<Custo> lista, int quantidadeCustos, int quantidadeDeMesesAtras, Funcionario funcionario, Departamento departamento){
         for (int i = 0; i < quantidadeCustos; i++){
             double valor = Math.round(Math.random()*20000.00)/100.00;
-            Custo custo = new Custo(valor, "Descricao produto", getDataAtrasada(quantidadeDeMesesAtras), "Categoria", departamento);
+            Custo custo = new Custo(valor, "Descricao produto", getDataAtrasada(quantidadeDeMesesAtras), "Categoria", funcionario, departamento);
             lista.add(custo);
         }
     }
 
-    public void geraCustos(List<Custo> lista, int quantidadeCustos, int quantidadeDeMesesAtras, Departamento departamento, String descricao, String categoria){
+    public void geraCustos(List<Custo> lista, int quantidadeCustos, int quantidadeDeMesesAtras, Funcionario funcionario ,Departamento departamento, String descricao, String categoria){
         for (int i = 0; i < quantidadeCustos; i++){
             double valor = Math.round(Math.random()*20000.00)/100.00;
-            Custo custo = new Custo(valor, descricao, getDataAtrasada(quantidadeDeMesesAtras), categoria, departamento);
+            Custo custo = new Custo(valor, descricao, getDataAtrasada(quantidadeDeMesesAtras), categoria, funcionario, departamento);
             lista.add(custo);
         }
     }
 
-    public void geraCustos(List<Custo> list, String nomeArquivoCSV){
+    // .csv (padrao): Valor;Descricao;Data;Categoria;MatriculaFuncionario;NomeFuncionario;Departamento
+    public void geraCustos(List<Custo> listaCustos, String nomeArquivoCSV){
         String path = "resources/csv/" + nomeArquivoCSV;
+        ListaFuncionarios listaFuncionarios = new ListaFuncionarios();
         String linha;
 
         try(BufferedReader leitor = new BufferedReader(new FileReader(path))){
@@ -91,7 +93,33 @@ public class GeradorDados {
                     continue;
                 }
                 String[] dados = linha.split(";");
-                Custo custo = new Custo(Double.parseDouble(dados[0]), dados[1], parseData(dados[2]), dados[3], parseDepartamento(dados[4]));
+                Funcionario funcionario = listaFuncionarios.getFuncionarioByMatricula(Integer.parseInt(dados[4]));
+                if (funcionario == null){
+                    funcionario = new Funcionario(dados[4], dados[5], parseDepartamento(dados[6]));
+                    listaFuncionarios.AddFuncionario(funcionario);
+                }
+                Custo custo = new Custo(Double.parseDouble(dados[0]), dados[1], parseData(dados[2]), dados[3], funcionario, parseDepartamento(dados[6]));
+                listaCustos.add(custo);
+            }
+        } catch (IOException e){
+            System.out.println("Arquivo não encontrado ou não foi possível converter linha do .csv para funcionário.");
+        }
+    }
+
+    // .csv (padrao): Valor;Descricao;Data;Categoria;Departamento
+    public void geraCustos(List<Custo> list, Funcionario funcionario, String nomeArquivoCSVSemFuncionario){
+        String path = "resources/csv/" + nomeArquivoCSVSemFuncionario;
+        String linha;
+
+        try(BufferedReader leitor = new BufferedReader(new FileReader(path))){
+            boolean primeiraLinha = true;
+            while ((linha = leitor.readLine()) != null){
+                if (primeiraLinha){
+                    primeiraLinha = false;
+                    continue;
+                }
+                String[] dados = linha.split(";");
+                Custo custo = new Custo(Double.parseDouble(dados[0]), dados[1], parseData(dados[2]), dados[3], funcionario, parseDepartamento(dados[4]));
                 list.add(custo);
             }
         } catch (IOException e){
