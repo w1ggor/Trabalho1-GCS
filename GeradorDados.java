@@ -96,6 +96,7 @@ public class GeradorDados {
                 Funcionario funcionario = listaFuncionarios.getFuncionarioByMatricula(Integer.parseInt(dados[4]));
                 if (funcionario == null){
                     funcionario = new Funcionario(dados[4], dados[5], parseDepartamento(dados[6]));
+                    listaFuncionarios.AddFuncionario(funcionario);
                 }
                 Custo custo = new Custo(Double.parseDouble(dados[0]), dados[1], parseData(dados[2]), dados[3], funcionario, parseDepartamento(dados[6]));
                 listaCustos.add(custo);
