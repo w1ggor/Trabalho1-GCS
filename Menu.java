@@ -191,17 +191,21 @@ public class Menu {
             pesquisaCusto();
 
             for(Custo c : listaCustos.getListaCustos()){
-                if(c.getDescricao().contains(descricao)){
+                if(c.getDescricao().toLowerCase().contains(descricao.toLowerCase())){
+                    System.out.println(""); 
                     System.out.println(c.toString());
-                    return;
+                    pesquisa = 1;
                 }
             }
+            if (pesquisa < 0)
+            {
             utils.limpaLinha();
             
-            if(pesquisa != -2)
+            if(pesquisa != -2 )
             System.out.println("Custo não encontrado!");
 
             pesquisa = -2;  
+            }
             }
                 break;
 
@@ -216,17 +220,21 @@ public class Menu {
             pesquisaCusto();
 
             for(Custo c : listaCustos.getListaCustos()){
-                if(c.getCategoria().contains(categoria)){
+                if(c.getCategoria().toLowerCase().contains(categoria.toLowerCase())){
+                    System.out.println(""); 
                     System.out.println(c.toString());
-                    return;
+                    pesquisa = 1;
                 }
             }
+            if (pesquisa < 0)
+            {
             utils.limpaLinha();
             
-            if(pesquisa != -2)
+            if(pesquisa != -2 )
             System.out.println("Custo não encontrado!");
 
             pesquisa = -2;  
+            }
             }
                 break;
 
@@ -255,10 +263,13 @@ public class Menu {
             {
                 for(Custo c : listaCustos.getListaCustos()){
                     if(c.getData().equals(utils.converteData(data))){
+                        System.out.println(""); 
                         System.out.println(c.toString());
-                        return;
+                        pesquisa = 1;
                     }
                 }
+                if(pesquisa < 0 )
+                {
                 utils.limpaLinha();
 
                 if(pesquisa == -3)
@@ -268,6 +279,7 @@ public class Menu {
                 System.out.println("Custo não encontrado!");
 
                 pesquisa = -2;  
+                }
             }
             }
                 break;
@@ -291,16 +303,20 @@ public class Menu {
             
             for(Custo c : listaCustos.getListaCustos()){
                 if(c.getDepartamento().ordinal() == (departamento - 1)){
+                    System.out.println(""); 
                     System.out.println(c.toString());
-                    return;
+                    pesquisa = 1;
                 }
             }
+            if (pesquisa < 0)
+            {
             utils.limpaLinha();
             
-            if(pesquisa != -2)
+            if(pesquisa != -2 )
             System.out.println("Custo não encontrado!");
 
             pesquisa = -2;  
+            }
             }
                 break;
 
@@ -308,6 +324,7 @@ public class Menu {
             iniciarMenu();
                 break;
         }
+        System.out.println("");
         System.out.println("1. Pesquisar novamente");
         System.out.println("-");
         System.out.println("0. Voltar para o menu");

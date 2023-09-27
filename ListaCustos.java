@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.time.LocalDate;
 
 public class ListaCustos {
@@ -16,6 +17,11 @@ public class ListaCustos {
     }
 
     public ArrayList<Custo> getListaCustos() {
+        this.listaCustos.sort(new Comparator<Custo>() {
+            public int compare(Custo o1, Custo o2) {
+                return o1.getData().compareTo(o2.getData());
+            }});
+
         return this.listaCustos;
     }
 
