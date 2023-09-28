@@ -12,7 +12,7 @@ public class Menu {
     int id = 0;
     public void iniciarMenu(){
         
-        do{
+        while(id == 0){
             for (Funcionario f : listaFuncionarios.getListaFuncionarios()) {
                 System.out.println(listaFuncionarios.toString(f)+ "\n");
             }
@@ -23,42 +23,52 @@ public class Menu {
                 System.out.println("----- Matricula Inválida! Informe uma matrícula correta!-----\n");
                 id = 0;
             }               
-        } while(id == 0);
+        };
+
+        utils.limpaConsole();
 
         System.out.println("Ola, " + listaFuncionarios.getFuncionarioByMatricula(id).getNome());
         System.out.println("Selecione uma das opcoes abaixo:");
         System.out.println("1. Criar funcionario");
-        System.out.println("2. Registrar um custo");
-        System.out.println("3. Pesquisa de custo");
-        System.out.println("4. Excluir custo");
-        System.out.println("5. Painel de métricas");
-        System.out.println("6. Editar custo");
-        System.out.println("7. Editar departamentos");
+        System.out.println("2. Editar departamentos");
+        System.out.println("3. Registrar um custo");
+        System.out.println("4. Editar custo");
+        System.out.println("5. Pesquisa de custo");
+        System.out.println("6. Excluir custo");
+        System.out.println("7. Painel de métricas");
+        System.out.println("-");
+        System.out.println("0. Trocar usuário");
 
 
-        int opcao = sc.nextInt();
+        int opcao = utils.escolha(sc, 7);
+
+        utils.limpaConsole();
 
         switch (opcao) {
             case 1:
                 criarFuncionario();
                 break;
             case 2:
-                registrarCusto();
+                editarDepartamentos();
                 break;
             case 3:
-                pesquisaCusto();
+                registrarCusto();
                 break;
             case 4:
-                excluirCusto();
-                break;
-            case 5:
-                gerarPainelMetricas();
-                break;
-            case 6:
                 editarCusto();
                 break;
+            case 5:
+                pesquisaCusto();
+                break;
+            case 6:
+                excluirCusto();
+                break;
             case 7:
-                editarDepartamentos();
+                gerarPainelMetricas();
+                break;
+            case 0:
+                id = 0;
+                iniciarMenu();
                 break;
             default:
                 System.out.println("Opcão inválida");
@@ -69,6 +79,7 @@ public class Menu {
     private void editarCusto() {
         Scanner in = new Scanner(System.in);
         int op = 0;
+        System.out.println("\n---------- Editar Custos ----------\n");
         System.out.println("Informe a descrição do custo que deseja editar: ");
         String descricao = in.nextLine();
         if(listaCustos.getListaCustos().size() == 0) {
@@ -83,7 +94,9 @@ public class Menu {
                     System.out.println("4. Categoria");
                     System.out.println("5. Departamento");
                     System.out.println("6. Editar custo");
-                    op = sc.nextInt();
+                    System.out.println("-");
+                    System.out.println("0. Voltar");
+                    op = utils.escolha(in, 6);
 
                     switch (op) {
                         case 1:
@@ -148,7 +161,10 @@ public class Menu {
                                     System.out.println("Opção inválida!");
                             }
                             break;
-                        default: System.out.println("Opção inválida!");
+                        case 0:
+                         utils.limpaConsole();
+                         editarCusto();
+                         ;
                     }
 
                 } else {
@@ -157,14 +173,47 @@ public class Menu {
             }
         }
         in.close();
+        System.out.println("");
+        System.out.println("1. Editar novamente");
+        System.out.println("-");
+        System.out.println("0. Voltar para o menu");
+        int fim = utils.escolha(sc, 1);
+        utils.limpaConsole();
+        switch (fim) {
+            case 1:
+            editarCusto();
+                break;
+        
+            case 0:
+            iniciarMenu();
+                break;
+        }
+        
     }
 
-    private void excluirCusto() {
+    private void excluirCusto() {   
+        
+        System.out.println("\n---------- Excluir Custo ----------\n");     
+        System.out.println("");
+    System.out.println("1. Excluir novamente");
+    System.out.println("-");
+    System.out.println("0. Voltar para o menu");
+    int fim = utils.escolha(sc, 1);
+    utils.limpaConsole();
+    switch (fim) {
+        case 1:
+        excluirCusto();
+            break;
+    
+        case 0:
+        iniciarMenu();
+            break;
+    }
     }
 
     private void pesquisaCusto() {
-        utils.limpaConsole();
         sc = new Scanner(System.in);
+        System.out.println("\n---------- Pesquisa de Custos ----------\n");
         System.out.println("Pesquisar custo por:");
         System.out.println("1. Descrição");
         System.out.println("2. Categoria");
@@ -329,6 +378,7 @@ public class Menu {
         System.out.println("-");
         System.out.println("0. Voltar para o menu");
         int fim = utils.escolha(sc, 1);
+        utils.limpaConsole();
         switch (fim) {
             case 1:
             pesquisaCusto();
@@ -345,6 +395,7 @@ public class Menu {
 
     private void criarFuncionario() {
         Scanner sc = new Scanner(System.in);
+        System.out.println("\n---------- Criar Funcionario ----------\n");
 
         System.out.println("Digite o nome do funcionario:");
         String nome = sc.nextLine();
@@ -381,10 +432,26 @@ public class Menu {
                 break;
         }
         listaFuncionarios.AddFuncionario(funcionario);
-        sc.close();
+
+        System.out.println("\n Adicionado com sucesso \n");
+        System.out.println("1. Adicionar outro");
+        System.out.println("-");
+        System.out.println("0. Voltar para o menu");
+        int fim = utils.escolha(sc, 1);
+        utils.limpaConsole();
+        switch (fim) {
+            case 1:
+            criarFuncionario();
+                break;
+        
+            case 0:
+            iniciarMenu();
+                break;
+        }
     }
 
     private void gerarPainelMetricas() {
+        System.out.println("\n---------- Painel de Metricas ----------\n");
         System.out.println("\n---------------\n" + listaFuncionarios.getFuncionarioByMatricula(id).getNome());
         System.out.printf("\nValor total dos custos do mês atual -> R$ %.2f\n", listaCustos.somaCustosMes(LocalDate.now()));
         System.out.println("\nValor total dos custos dos últimos 3 meses por departamento: ");
@@ -395,23 +462,29 @@ public class Menu {
         System.out.printf("\n   Departamento de engenharia -> R$ %.2f", listaCustos.somaCustosDepartamento(Departamento.Engenharia));
         System.out.printf("\n   Departamento de producao -> R$ %.2f\n", listaCustos.somaCustosDepartamento(Departamento.Producao));
         System.out.println("\nFuncionários com a maior soma de custos registrados:\n");
-        System.out.println("1. ");
-        System.out.println("2. ");
-        System.out.println("3. ");
+        System.out.println("1 - ");
+        System.out.println("2 - ");
+        System.out.println("3 - ");
         System.out.println("---------------");
+        System.out.println("");
+        System.out.println("-");
+        System.out.println("(Enter) Voltar para o menu");
+        sc.nextLine();
+        utils.limpaConsole();
+        iniciarMenu();
     }
 
     private void editarDepartamentos(){
         Scanner sc = new Scanner(System.in);
         int opcao;
-        do {
-            System.out.println("\n---------- Editar Departamentos ----------\n");
-            System.out.println("1. Remover departamento");
-            System.out.println("2. Mostrar departamentos");
-            System.out.print("Digite a opção desejada: ");
-            opcao = sc.nextInt();
-            if (opcao != 1 && opcao != 2) System.out.println("Opção inválida!");
-        } while (opcao != 1 && opcao != 2);
+        System.out.println("\n---------- Editar Departamentos ----------\n");
+        System.out.println("Selecione uma opcao:");
+        System.out.println("1. Remover departamento");
+        System.out.println("2. Mostrar departamentos");
+        System.out.println("-");
+        System.out.println("0. Voltar para o menu");
+        
+        opcao = utils.escolha(sc, 2);
         
         switch (opcao) {
             case 1:
@@ -420,15 +493,30 @@ public class Menu {
             case 2:
                 mostrarDepartamentos();
                 break;
-            default:
-                System.out.println("Opção inválida!");
+            case 0: 
+                iniciarMenu();
                 break;
         }
-        sc.close();
+        System.out.println("");
+        System.out.println("1. Editar novamente");
+        System.out.println("-");
+        System.out.println("0. Voltar para o menu");
+        int fim = utils.escolha(sc, 1);
+        utils.limpaConsole();
+        switch (fim) {
+            case 1:
+            editarDepartamentos();
+                break;
+        
+            case 0:
+            iniciarMenu();
+                break;
+        }
     }
 
     private void removerDepartamento(){
         Scanner sc = new Scanner(System.in);
+            System.out.println("\n---------- Remover Departamento ----------\n");
         System.out.println("Digite o nome do departamento que deseja remover: ");
         String nome = sc.nextLine();
         EnumSet<Departamento> departamentos = EnumSet.allOf(Departamento.class);
