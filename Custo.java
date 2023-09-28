@@ -1,4 +1,6 @@
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 
 public class Custo {
     private double valor;
@@ -67,12 +69,17 @@ public class Custo {
 
     @Override
     public String toString() {
-        return "Custo: " +
+        String dateFormat = "dd/MM/uuuu";
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter
+        .ofPattern(dateFormat)
+        .withResolverStyle(ResolverStyle.STRICT);
+        
+        return "__Custo__ " +
         "\nValor: R$" + valor +
         "\nDescrição: " + descricao +
-        "\nData: " + data +
+        "\nData: " +  data.format(dateTimeFormatter)+
         "\nCategoria: " + categoria +
         "\nFuncionário responsável: " + funcionario.getNome() +
-        "\nDepartamento: " + departamento;
+        "\nDepartamento: " + departamento.name();
     }
 }

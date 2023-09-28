@@ -4,6 +4,7 @@ import java.util.EnumSet;
 
 public class Menu {
     Scanner sc = new Scanner(System.in);
+    Utils utils = new Utils();
 
     ListaFuncionarios listaFuncionarios = new ListaFuncionarios();
     ListaCustos listaCustos = new ListaCustos();
@@ -45,7 +46,7 @@ public class Menu {
                 registrarCusto();
                 break;
             case 3:
-                pesquisaCustoMenu();
+                pesquisaCusto();
                 break;
             case 4:
                 excluirCusto();
@@ -161,16 +162,181 @@ public class Menu {
     private void excluirCusto() {
     }
 
-    private void pesquisaCustoMenu() {
-        sc.nextLine();
-        System.out.println("Digite a descrição do custo:");
-        String descricao = sc.nextLine();
+    private void pesquisaCusto() {
+        utils.limpaConsole();
+        sc = new Scanner(System.in);
+        System.out.println("Pesquisar custo por:");
+        System.out.println("1. Descrição");
+        System.out.println("2. Categoria");
+        System.out.println("3. Data");
+        System.out.println("4. Departamento");
+        System.out.println("-");
+        System.out.println("0. Voltar para o menu");
 
-      for (Custo c : listaCustos.getListaCustos()) {
-            if (c.getDescricao().contains(descricao)) {
-                System.out.println(c.toString());
-                return;
+        int por = utils.escolha(sc, 4);
+        utils.limpaConsole();
+
+        int pesquisa = -1;
+
+        switch (por) {
+
+            case 1:
+            System.out.println("Digite a descrição do custo:");
+            System.out.println("(Deixe vazio se quiser voltar)");
+            while(pesquisa < 0)
+            { 
+            String descricao = sc.nextLine();
+
+            if(descricao.length() == 0)
+            pesquisaCusto();
+
+            for(Custo c : listaCustos.getListaCustos()){
+                if(c.getDescricao().toLowerCase().contains(descricao.toLowerCase())){
+                    System.out.println(""); 
+                    System.out.println(c.toString());
+                    pesquisa = 1;
+                }
             }
+            if (pesquisa < 0)
+            {
+            utils.limpaLinha();
+            
+            if(pesquisa != -2 )
+            System.out.println("Custo não encontrado!");
+
+            pesquisa = -2;  
+            }
+            }
+                break;
+
+            case 2:
+            System.out.println("Digite a categoria do custo:");
+            System.out.println("(Deixe vazio se quiser voltar)");
+            while(pesquisa < 0)
+            { 
+            String categoria = sc.nextLine();
+
+            if(categoria.length() == 0)
+            pesquisaCusto();
+
+            for(Custo c : listaCustos.getListaCustos()){
+                if(c.getCategoria().toLowerCase().contains(categoria.toLowerCase())){
+                    System.out.println(""); 
+                    System.out.println(c.toString());
+                    pesquisa = 1;
+                }
+            }
+            if (pesquisa < 0)
+            {
+            utils.limpaLinha();
+            
+            if(pesquisa != -2 )
+            System.out.println("Custo não encontrado!");
+
+            pesquisa = -2;  
+            }
+            }
+                break;
+
+            case 3:
+            System.out.println("Digite a data do custo (Formato: dd/mm/aaaa)");
+            System.out.println("(Deixe vazio se quiser voltar)");
+            while(pesquisa < 0)
+            { 
+            String data = sc.nextLine();
+
+            if(data.length() == 0)
+            pesquisaCusto();
+
+            if(!utils.validaData(data)){
+                utils.limpaLinha();
+
+                if (pesquisa == -2)
+                utils.limpaLinha();
+
+                if(pesquisa != -3)
+                System.out.println("Formato inválido!");
+
+                pesquisa = -3;
+            }
+            else
+            {
+                for(Custo c : listaCustos.getListaCustos()){
+                    if(c.getData().equals(utils.converteData(data))){
+                        System.out.println(""); 
+                        System.out.println(c.toString());
+                        pesquisa = 1;
+                    }
+                }
+                if(pesquisa < 0 )
+                {
+                utils.limpaLinha();
+
+                if(pesquisa == -3)
+                utils.limpaLinha();
+
+                if(pesquisa != -2)
+                System.out.println("Custo não encontrado!");
+
+                pesquisa = -2;  
+                }
+            }
+            }
+                break;
+
+            case 4:
+            System.out.println("Selecione o departamento do custo:");
+            for(Departamento c  : Departamento.values())
+                System.out.println((c.ordinal() + 1) + ". " + c.name());
+
+            System.out.println("-");
+            System.out.println("0. Voltar");
+            
+
+            while(pesquisa < 0)
+            { 
+
+            int departamento = utils.escolha(sc, 4);
+
+            if(departamento == 0)
+            pesquisaCusto();
+            
+            for(Custo c : listaCustos.getListaCustos()){
+                if(c.getDepartamento().ordinal() == (departamento - 1)){
+                    System.out.println(""); 
+                    System.out.println(c.toString());
+                    pesquisa = 1;
+                }
+            }
+            if (pesquisa < 0)
+            {
+            utils.limpaLinha();
+            
+            if(pesquisa != -2 )
+            System.out.println("Custo não encontrado!");
+
+            pesquisa = -2;  
+            }
+            }
+                break;
+
+            case 0:
+            iniciarMenu();
+                break;
+        }
+        System.out.println("");
+        System.out.println("1. Pesquisar novamente");
+        System.out.println("-");
+        System.out.println("0. Voltar para o menu");
+        int fim = utils.escolha(sc, 1);
+        switch (fim) {
+            case 1:
+            pesquisaCusto();
+                break;
+        
+            case 0:
+            iniciarMenu();
+                break;
         }
     }
 
@@ -281,4 +447,6 @@ public class Menu {
             System.out.println(departamento);
         }
     }
+
+    
 }
