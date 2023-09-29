@@ -16,13 +16,22 @@ public class Menu {
             for (Funcionario f : listaFuncionarios.getListaFuncionarios()) {
                 System.out.println(listaFuncionarios.toString(f)+ "\n");
             }
-            System.out.println("Informe o numero de matricula do funcionario que deseja acessar: ");
-            id = sc.nextInt();
+            boolean validado = false;
+            do {
+                System.out.println("Informe o numero de matricula do funcionario que deseja acessar: ");
+                var validacao = sc.nextLine();
 
-            if(listaFuncionarios.getFuncionarioByMatricula(id) == null){
-                System.out.println("----- Matricula Inválida! Informe uma matrícula correta!-----\n");
-                id = 0;
-            }               
+                if (!validacao.matches("\\d+")){
+                    System.out.println("----- A matricula deve conter apenas numeros!-----\n");
+                    validado = false;
+                }else if(listaFuncionarios.getFuncionarioByMatricula(Integer.parseInt(validacao)) == null){
+                    System.out.println("----- Matricula Inválida! Informe uma matrícula correta!-----\n");
+                    id = 0;
+                }else{
+                    id = Integer.parseInt(validacao);
+                    validado = true;
+                }
+            }while (!validado);
         };
 
         utils.limpaConsole();
@@ -397,17 +406,42 @@ public class Menu {
         Scanner sc = new Scanner(System.in);
         System.out.println("\n---------- Criar Funcionario ----------\n");
 
-        System.out.println("Digite o nome do funcionario:");
-        String nome = sc.nextLine();
-        System.out.println("Digite o numero de matricula:");
-        String nroMatricula = sc.nextLine();
+        boolean validado = false;
+        String nome = "";
+        do {
+            System.out.println("Digite o nome do funcionario:");
+            nome = sc.nextLine();
+            if (!nome.matches("[a-zA-Z]+") || nome == ""){
+                System.out.println("----- O nome nao pode conter numeros ou caracteres especiais! -----\n");
+            }else validado = true;
+        }while (!validado);
+
+        validado = false;
+        String nroMatricula;
+        do {
+            System.out.println("Digite o numero de matricula:");
+            nroMatricula = sc.nextLine();
+            if(!nroMatricula.matches("\\d+")){
+                System.out.println("----- A matricula deve conter apenas numeros! -----\n");
+            }else validado = true;
+        }while (!validado);
+
+        int selecionaDepartamento = 999;
+        validado = false;
+        do{
         System.out.println("Selecione o departamento");
         System.out.println("1. Compras");
         System.out.println("2. Vendas");
         System.out.println("3. Expedicao");
         System.out.println("4. Engenharia");
         System.out.println("5. Producao");
-        int selecionaDepartamento = sc.nextInt();
+        selecionaDepartamento = sc.nextInt();
+
+        if (selecionaDepartamento < 1 || selecionaDepartamento > 5){
+            System.out.println("----- Opcao invalida! -----\n");
+        }else validado = true;
+
+        }while (!validado);
 
         Funcionario funcionario = null;
 
@@ -427,13 +461,10 @@ public class Menu {
             case 5:
                 funcionario = new Funcionario(nroMatricula, nome, Departamento.Producao);
                 break;
-            default:
-                System.out.println("Opcao invalida.");
-                break;
         }
         listaFuncionarios.AddFuncionario(funcionario);
 
-        System.out.println("\n Adicionado com sucesso \n");
+        System.out.println("\nAdicionado com sucesso \n");
         System.out.println("1. Adicionar outro");
         System.out.println("-");
         System.out.println("0. Voltar para o menu");
