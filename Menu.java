@@ -16,15 +16,18 @@ public class Menu {
         
         while(true){
             while (id == 0 && !sair) {
+                int cont = 1;
+                System.out.println("\n------------------------ Lista de Funcionários --------------------\n");
                 for (Funcionario f : listaFuncionarios.getListaFuncionarios()) {
-                    System.out.println(listaFuncionarios.toString(f) + "\n");
+                    System.out.println(cont + " - "+ listaFuncionarios.toString(f) + "\n");
+                    cont++;
                 }
                 boolean validado = false;
                 do {
                     System.out.println("Informe o número de matricula do funcionário que deseja acessar: (Digite Sair para fechar)");
                     var validacao = sc.nextLine();
 
-                    if(validacao.equals("Sair") || validacao.equals("sair") || validacao.equals("SAIR")){
+                    if(validacao.equalsIgnoreCase("sair")){
                         sair = true;
                         break;
                     }
@@ -108,12 +111,12 @@ public class Menu {
         System.out.println("Informe a descrição do custo que deseja editar: (Digite Sair para fechar)");
         String descricao = in.nextLine();
 
-        if(descricao.equals("Sair") || descricao.equals("sair") || descricao.equals("SAIR")){
-            sair = true;
+        if(descricao.equalsIgnoreCase("sair")){
+            iniciarMenu();
         }
 
         if (listaCustos.getListaCustos().size() == 0) {
-            System.out.println("Não há custos para alterar!");
+            System.out.println("Custo não encontrado!");
         } else {
             for (Custo c : listaCustos.getListaCustos()) {
                 if (c.getDescricao().contains(descricao)) {
@@ -123,7 +126,6 @@ public class Menu {
                     System.out.println("3. Data");
                     System.out.println("4. Categoria");
                     System.out.println("5. Departamento");
-                    System.out.println("6. Editar custo");
                     System.out.println("-");
                     System.out.println("0. Voltar");
                     op = utils.escolha(in, 6);
@@ -171,21 +173,27 @@ public class Menu {
                             switch (dep) {
                                 case 1:
                                     c.setDepartamento(Departamento.RH);
+                                    System.out.println("Departamento atualizado!");
                                     break;
                                 case 2:
                                     c.setDepartamento(Departamento.Compras);
+                                    System.out.println("Departamento atualizado!");
                                     break;
                                 case 3:
                                     c.setDepartamento(Departamento.Vendas);
+                                    System.out.println("Departamento atualizado!");
                                     break;
                                 case 4:
                                     c.setDepartamento(Departamento.Expedicao);
+                                    System.out.println("Departamento atualizado!");
                                     break;
                                 case 5:
                                     c.setDepartamento(Departamento.Engenharia);
+                                    System.out.println("Departamento atualizado!");
                                     break;
                                 case 6:
                                     c.setDepartamento(Departamento.Producao);
+                                    System.out.println("Departamento atualizado!");
                                     break;
                                 default:
                                     System.out.println("Opção inválida!");
@@ -197,15 +205,13 @@ public class Menu {
                             
                     }
 
-                } else {
-                    System.out.println("Custo não encontrado");
                 }
             }
         }
-        in.close();
-        if(!sair){
+        op=1;
+        while(op==1){
             System.out.println("");
-            System.out.println("1. Editar novamente");
+            System.out.println("1. Voltar para edição de custo");
             System.out.println("-");
             System.out.println("0. Voltar para o menu");
             int fim = utils.escolha(sc, 1);
