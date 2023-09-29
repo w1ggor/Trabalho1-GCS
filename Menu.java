@@ -462,9 +462,8 @@ public class Menu {
         System.out.printf("\n   Departamento de engenharia -> R$ %.2f", listaCustos.somaCustosDepartamento(Departamento.Engenharia));
         System.out.printf("\n   Departamento de producao -> R$ %.2f\n", listaCustos.somaCustosDepartamento(Departamento.Producao));
         System.out.println("\nFuncionários com a maior soma de custos registrados:\n");
-        System.out.println("1 - ");
-        System.out.println("2 - ");
-        System.out.println("3 - ");
+        listaCustos.funcionariosComMaiorCusto();
+        
         System.out.println("---------------");
         System.out.println("");
         System.out.println("-");
