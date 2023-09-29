@@ -391,7 +391,60 @@ public class Menu {
     }
 
     private void registrarCusto() {
-    }
+        Scanner in = new Scanner(System.in);
+        System.out.println("\n---------- Registrar Custo ----------\n");
+    
+        System.out.println("Informe o valor do custo:");
+        double valor = in.nextDouble();
+        in.nextLine(); 
+    
+        System.out.println("Informe a descrição do custo:");
+        String descricao = in.nextLine();
+    
+        System.out.println("Informe a data do custo (Formato: dd/mm/aaaa):");
+        String dataInput = in.nextLine();
+    
+        if (!utils.validaData(dataInput)) {
+            System.out.println("Data inválida! Use o formato dd/mm/aaaa.");
+            return;
+        }
+    
+        LocalDate data = utils.converteData(dataInput);
+    
+        System.out.println("Informe a categoria do custo:");
+        String categoria = in.nextLine();
+    
+        System.out.println("Selecione o departamento do custo:");
+        for (Departamento c : Departamento.values()) {
+            System.out.println((c.ordinal() + 1) + ". " + c.name());
+        }
+    
+        int departamento = utils.escolha(in, Departamento.values().length) - 1;
+    
+        Departamento departamentoSelecionado = Departamento.values()[departamento];
+    
+        Funcionario funcionario = listaFuncionarios.getFuncionarioByMatricula(id);
+    
+        Custo custo = new Custo(valor, descricao, data, categoria, funcionario, departamentoSelecionado);
+        listaCustos.AddCusto(custo);
+    
+        System.out.println("\nCusto registrado com sucesso!");
+    
+        System.out.println("");
+        System.out.println("1. Registrar outro custo");
+        System.out.println("-");
+        System.out.println("0. Voltar para o menu");
+        int fim = utils.escolha(in, 1);
+        utils.limpaConsole();
+        switch (fim) {
+            case 1:
+                registrarCusto();
+                break;
+            case 0:
+                iniciarMenu();
+                break;
+        }
+    }    
 
     private void criarFuncionario() {
         Scanner sc = new Scanner(System.in);
