@@ -10,29 +10,31 @@ public class Menu {
     ListaCustos listaCustos = new ListaCustos();
 
     int id = 0;
-    public void iniciarMenu(){
-        
-        while(id == 0){
+
+    public void iniciarMenu() {
+
+        while (id == 0) {
             for (Funcionario f : listaFuncionarios.getListaFuncionarios()) {
-                System.out.println(listaFuncionarios.toString(f)+ "\n");
+                System.out.println(listaFuncionarios.toString(f) + "\n");
             }
             boolean validado = false;
             do {
                 System.out.println("Informe o numero de matricula do funcionario que deseja acessar: ");
                 var validacao = sc.nextLine();
 
-                if (!validacao.matches("\\d+")){
+                if (!validacao.matches("\\d+")) {
                     System.out.println("----- A matricula deve conter apenas numeros!-----\n");
                     validado = false;
-                }else if(listaFuncionarios.getFuncionarioByMatricula(Integer.parseInt(validacao)) == null){
+                } else if (listaFuncionarios.getFuncionarioByMatricula(Integer.parseInt(validacao)) == null) {
                     System.out.println("----- Matricula Inválida! Informe uma matrícula correta!-----\n");
                     id = 0;
-                }else{
+                } else {
                     id = Integer.parseInt(validacao);
                     validado = true;
                 }
-            }while (!validado);
-        };
+            } while (!validado);
+        }
+        ;
 
         utils.limpaConsole();
 
@@ -47,7 +49,6 @@ public class Menu {
         System.out.println("7. Painel de métricas");
         System.out.println("-");
         System.out.println("0. Trocar usuário");
-
 
         int opcao = utils.escolha(sc, 7);
 
@@ -91,7 +92,7 @@ public class Menu {
         System.out.println("\n---------- Editar Custos ----------\n");
         System.out.println("Informe a descrição do custo que deseja editar: ");
         String descricao = in.nextLine();
-        if(listaCustos.getListaCustos().size() == 0) {
+        if (listaCustos.getListaCustos().size() == 0) {
             System.out.println("Não há custos para alterar!");
         } else {
             for (Custo c : listaCustos.getListaCustos()) {
@@ -147,7 +148,7 @@ public class Menu {
                             System.out.println("5. Engenharia");
                             System.out.println("6. Produção");
                             int dep = in.nextInt();
-                            switch(dep) {
+                            switch (dep) {
                                 case 1:
                                     c.setDepartamento(Departamento.RH);
                                     break;
@@ -160,7 +161,7 @@ public class Menu {
                                 case 4:
                                     c.setDepartamento(Departamento.Expedicao);
                                     break;
-                                case 5: 
+                                case 5:
                                     c.setDepartamento(Departamento.Engenharia);
                                     break;
                                 case 6:
@@ -171,9 +172,9 @@ public class Menu {
                             }
                             break;
                         case 0:
-                         utils.limpaConsole();
-                         editarCusto();
-                         ;
+                            utils.limpaConsole();
+                            editarCusto();
+                            ;
                     }
 
                 } else {
@@ -190,34 +191,46 @@ public class Menu {
         utils.limpaConsole();
         switch (fim) {
             case 1:
-            editarCusto();
+                editarCusto();
                 break;
-        
+
             case 0:
-            iniciarMenu();
+                iniciarMenu();
                 break;
         }
-        
+
     }
 
-    private void excluirCusto() {   
-        
-        System.out.println("\n---------- Excluir Custo ----------\n");     
-        System.out.println("");
-    System.out.println("1. Excluir novamente");
-    System.out.println("-");
-    System.out.println("0. Voltar para o menu");
-    int fim = utils.escolha(sc, 1);
-    utils.limpaConsole();
-    switch (fim) {
-        case 1:
-        excluirCusto();
-            break;
-    
-        case 0:
-        iniciarMenu();
-            break;
-    }
+    private void excluirCusto() {
+
+        System.out.println("\n---------- Excluir Custo ----------\n");
+        listaCustos.excluiCusto();
+        boolean continuarExcluindo = true;
+
+        while (continuarExcluindo) {
+            System.out.println("\n1. Excluir novamente");
+            System.out.println("-");
+            System.out.println("0. Voltar para o menu");
+
+            int escolha = utils.escolha(sc, 1);
+            utils.limpaConsole();
+
+            switch (escolha) {
+                case 1:
+                    utils.limpaConsole();
+                    continuarExcluindo = true;
+                    listaCustos.excluiCusto();
+                    break;
+                case 0:
+                    utils.limpaConsole();
+                    continuarExcluindo = false;
+                    iniciarMenu();
+                    break;
+                default:
+                    System.out.println(
+                            "Opção inválida. Por favor, escolha 1 para excluir novamente ou 0 para voltar ao menu.");
+            }
+        }
     }
 
     private void pesquisaCusto() {
@@ -239,147 +252,136 @@ public class Menu {
         switch (por) {
 
             case 1:
-            System.out.println("Digite a descrição do custo:");
-            System.out.println("(Deixe vazio se quiser voltar)");
-            while(pesquisa < 0)
-            { 
-            String descricao = sc.nextLine();
+                System.out.println("Digite a descrição do custo:");
+                System.out.println("(Deixe vazio se quiser voltar)");
+                while (pesquisa < 0) {
+                    String descricao = sc.nextLine();
 
-            if(descricao.length() == 0)
-            pesquisaCusto();
+                    if (descricao.length() == 0)
+                        pesquisaCusto();
 
-            for(Custo c : listaCustos.getListaCustos()){
-                if(c.getDescricao().toLowerCase().contains(descricao.toLowerCase())){
-                    System.out.println(""); 
-                    System.out.println(c.toString());
-                    pesquisa = 1;
+                    for (Custo c : listaCustos.getListaCustos()) {
+                        if (c.getDescricao().toLowerCase().contains(descricao.toLowerCase())) {
+                            System.out.println("");
+                            System.out.println(c.toString());
+                            pesquisa = 1;
+                        }
+                    }
+                    if (pesquisa < 0) {
+                        utils.limpaLinha();
+
+                        if (pesquisa != -2)
+                            System.out.println("Custo não encontrado!");
+
+                        pesquisa = -2;
+                    }
                 }
-            }
-            if (pesquisa < 0)
-            {
-            utils.limpaLinha();
-            
-            if(pesquisa != -2 )
-            System.out.println("Custo não encontrado!");
-
-            pesquisa = -2;  
-            }
-            }
                 break;
 
             case 2:
-            System.out.println("Digite a categoria do custo:");
-            System.out.println("(Deixe vazio se quiser voltar)");
-            while(pesquisa < 0)
-            { 
-            String categoria = sc.nextLine();
+                System.out.println("Digite a categoria do custo:");
+                System.out.println("(Deixe vazio se quiser voltar)");
+                while (pesquisa < 0) {
+                    String categoria = sc.nextLine();
 
-            if(categoria.length() == 0)
-            pesquisaCusto();
+                    if (categoria.length() == 0)
+                        pesquisaCusto();
 
-            for(Custo c : listaCustos.getListaCustos()){
-                if(c.getCategoria().toLowerCase().contains(categoria.toLowerCase())){
-                    System.out.println(""); 
-                    System.out.println(c.toString());
-                    pesquisa = 1;
+                    for (Custo c : listaCustos.getListaCustos()) {
+                        if (c.getCategoria().toLowerCase().contains(categoria.toLowerCase())) {
+                            System.out.println("");
+                            System.out.println(c.toString());
+                            pesquisa = 1;
+                        }
+                    }
+                    if (pesquisa < 0) {
+                        utils.limpaLinha();
+
+                        if (pesquisa != -2)
+                            System.out.println("Custo não encontrado!");
+
+                        pesquisa = -2;
+                    }
                 }
-            }
-            if (pesquisa < 0)
-            {
-            utils.limpaLinha();
-            
-            if(pesquisa != -2 )
-            System.out.println("Custo não encontrado!");
-
-            pesquisa = -2;  
-            }
-            }
                 break;
 
             case 3:
-            System.out.println("Digite a data do custo (Formato: dd/mm/aaaa)");
-            System.out.println("(Deixe vazio se quiser voltar)");
-            while(pesquisa < 0)
-            { 
-            String data = sc.nextLine();
+                System.out.println("Digite a data do custo (Formato: dd/mm/aaaa)");
+                System.out.println("(Deixe vazio se quiser voltar)");
+                while (pesquisa < 0) {
+                    String data = sc.nextLine();
 
-            if(data.length() == 0)
-            pesquisaCusto();
+                    if (data.length() == 0)
+                        pesquisaCusto();
 
-            if(!utils.validaData(data)){
-                utils.limpaLinha();
+                    if (!utils.validaData(data)) {
+                        utils.limpaLinha();
 
-                if (pesquisa == -2)
-                utils.limpaLinha();
+                        if (pesquisa == -2)
+                            utils.limpaLinha();
 
-                if(pesquisa != -3)
-                System.out.println("Formato inválido!");
+                        if (pesquisa != -3)
+                            System.out.println("Formato inválido!");
 
-                pesquisa = -3;
-            }
-            else
-            {
-                for(Custo c : listaCustos.getListaCustos()){
-                    if(c.getData().equals(utils.converteData(data))){
-                        System.out.println(""); 
-                        System.out.println(c.toString());
-                        pesquisa = 1;
+                        pesquisa = -3;
+                    } else {
+                        for (Custo c : listaCustos.getListaCustos()) {
+                            if (c.getData().equals(utils.converteData(data))) {
+                                System.out.println("");
+                                System.out.println(c.toString());
+                                pesquisa = 1;
+                            }
+                        }
+                        if (pesquisa < 0) {
+                            utils.limpaLinha();
+
+                            if (pesquisa == -3)
+                                utils.limpaLinha();
+
+                            if (pesquisa != -2)
+                                System.out.println("Custo não encontrado!");
+
+                            pesquisa = -2;
+                        }
                     }
                 }
-                if(pesquisa < 0 )
-                {
-                utils.limpaLinha();
-
-                if(pesquisa == -3)
-                utils.limpaLinha();
-
-                if(pesquisa != -2)
-                System.out.println("Custo não encontrado!");
-
-                pesquisa = -2;  
-                }
-            }
-            }
                 break;
 
             case 4:
-            System.out.println("Selecione o departamento do custo:");
-            for(Departamento c  : Departamento.values())
-                System.out.println((c.ordinal() + 1) + ". " + c.name());
+                System.out.println("Selecione o departamento do custo:");
+                for (Departamento c : Departamento.values())
+                    System.out.println((c.ordinal() + 1) + ". " + c.name());
 
-            System.out.println("-");
-            System.out.println("0. Voltar");
-            
+                System.out.println("-");
+                System.out.println("0. Voltar");
 
-            while(pesquisa < 0)
-            { 
+                while (pesquisa < 0) {
 
-            int departamento = utils.escolha(sc, 4);
+                    int departamento = utils.escolha(sc, 4);
 
-            if(departamento == 0)
-            pesquisaCusto();
-            
-            for(Custo c : listaCustos.getListaCustos()){
-                if(c.getDepartamento().ordinal() == (departamento - 1)){
-                    System.out.println(""); 
-                    System.out.println(c.toString());
-                    pesquisa = 1;
+                    if (departamento == 0)
+                        pesquisaCusto();
+
+                    for (Custo c : listaCustos.getListaCustos()) {
+                        if (c.getDepartamento().ordinal() == (departamento - 1)) {
+                            System.out.println("");
+                            System.out.println(c.toString());
+                            pesquisa = 1;
+                        }
+                    }
+                    if (pesquisa < 0) {
+                        utils.limpaLinha();
+
+                        if (pesquisa != -2)
+                            System.out.println("Custo não encontrado!");
+
+                        pesquisa = -2;
+                    }
                 }
-            }
-            if (pesquisa < 0)
-            {
-            utils.limpaLinha();
-            
-            if(pesquisa != -2 )
-            System.out.println("Custo não encontrado!");
-
-            pesquisa = -2;  
-            }
-            }
                 break;
 
             case 0:
-            iniciarMenu();
+                iniciarMenu();
                 break;
         }
         System.out.println("");
@@ -390,11 +392,11 @@ public class Menu {
         utils.limpaConsole();
         switch (fim) {
             case 1:
-            pesquisaCusto();
+                pesquisaCusto();
                 break;
-        
+
             case 0:
-            iniciarMenu();
+                iniciarMenu();
                 break;
         }
     }
@@ -411,37 +413,40 @@ public class Menu {
         do {
             System.out.println("Digite o nome do funcionario:");
             nome = sc.nextLine();
-            if (!nome.matches("[a-zA-Z]+") || nome == ""){
+            if (!nome.matches("[a-zA-Z]+") || nome == "") {
                 System.out.println("----- O nome nao pode conter numeros ou caracteres especiais! -----\n");
-            }else validado = true;
-        }while (!validado);
+            } else
+                validado = true;
+        } while (!validado);
 
         validado = false;
         String nroMatricula;
         do {
             System.out.println("Digite o numero de matricula:");
             nroMatricula = sc.nextLine();
-            if(!nroMatricula.matches("\\d+")){
+            if (!nroMatricula.matches("\\d+")) {
                 System.out.println("----- A matricula deve conter apenas numeros! -----\n");
-            }else validado = true;
-        }while (!validado);
+            } else
+                validado = true;
+        } while (!validado);
 
         int selecionaDepartamento = 999;
         validado = false;
-        do{
-        System.out.println("Selecione o departamento");
-        System.out.println("1. Compras");
-        System.out.println("2. Vendas");
-        System.out.println("3. Expedicao");
-        System.out.println("4. Engenharia");
-        System.out.println("5. Producao");
-        selecionaDepartamento = sc.nextInt();
+        do {
+            System.out.println("Selecione o departamento");
+            System.out.println("1. Compras");
+            System.out.println("2. Vendas");
+            System.out.println("3. Expedicao");
+            System.out.println("4. Engenharia");
+            System.out.println("5. Producao");
+            selecionaDepartamento = sc.nextInt();
 
-        if (selecionaDepartamento < 1 || selecionaDepartamento > 5){
-            System.out.println("----- Opcao invalida! -----\n");
-        }else validado = true;
+            if (selecionaDepartamento < 1 || selecionaDepartamento > 5) {
+                System.out.println("----- Opcao invalida! -----\n");
+            } else
+                validado = true;
 
-        }while (!validado);
+        } while (!validado);
 
         Funcionario funcionario = null;
 
@@ -472,11 +477,11 @@ public class Menu {
         utils.limpaConsole();
         switch (fim) {
             case 1:
-            criarFuncionario();
+                criarFuncionario();
                 break;
-        
+
             case 0:
-            iniciarMenu();
+                iniciarMenu();
                 break;
         }
     }
@@ -484,17 +489,23 @@ public class Menu {
     private void gerarPainelMetricas() {
         System.out.println("\n---------- Painel de Metricas ----------\n");
         System.out.println("\n---------------\n" + listaFuncionarios.getFuncionarioByMatricula(id).getNome());
-        System.out.printf("\nValor total dos custos do mês atual -> R$ %.2f\n", listaCustos.somaCustosMes(LocalDate.now()));
+        System.out.printf("\nValor total dos custos do mês atual -> R$ %.2f\n",
+                listaCustos.somaCustosMes(LocalDate.now()));
         System.out.println("\nValor total dos custos dos últimos 3 meses por departamento: ");
         System.out.printf("\n   Departamento de RH -> R$ %.2f", listaCustos.somaCustosDepartamento(Departamento.RH));
-        System.out.printf("\n   Departamento de compras -> R$ %.2f", listaCustos.somaCustosDepartamento(Departamento.Compras));
-        System.out.printf("\n   Departamento de vendas -> R$ %.2f", listaCustos.somaCustosDepartamento(Departamento.Vendas));
-        System.out.printf("\n   Departamento de expedicao -> R$ %.2f", listaCustos.somaCustosDepartamento(Departamento.Expedicao));
-        System.out.printf("\n   Departamento de engenharia -> R$ %.2f", listaCustos.somaCustosDepartamento(Departamento.Engenharia));
-        System.out.printf("\n   Departamento de producao -> R$ %.2f\n", listaCustos.somaCustosDepartamento(Departamento.Producao));
+        System.out.printf("\n   Departamento de compras -> R$ %.2f",
+                listaCustos.somaCustosDepartamento(Departamento.Compras));
+        System.out.printf("\n   Departamento de vendas -> R$ %.2f",
+                listaCustos.somaCustosDepartamento(Departamento.Vendas));
+        System.out.printf("\n   Departamento de expedicao -> R$ %.2f",
+                listaCustos.somaCustosDepartamento(Departamento.Expedicao));
+        System.out.printf("\n   Departamento de engenharia -> R$ %.2f",
+                listaCustos.somaCustosDepartamento(Departamento.Engenharia));
+        System.out.printf("\n   Departamento de producao -> R$ %.2f\n",
+                listaCustos.somaCustosDepartamento(Departamento.Producao));
         System.out.println("\nFuncionários com a maior soma de custos registrados:\n");
         listaCustos.funcionariosComMaiorCusto();
-        
+
         System.out.println("---------------");
         System.out.println("");
         System.out.println("-");
@@ -504,7 +515,7 @@ public class Menu {
         iniciarMenu();
     }
 
-    private void editarDepartamentos(){
+    private void editarDepartamentos() {
         Scanner sc = new Scanner(System.in);
         int opcao;
         System.out.println("\n---------- Editar Departamentos ----------\n");
@@ -513,9 +524,9 @@ public class Menu {
         System.out.println("2. Mostrar departamentos");
         System.out.println("-");
         System.out.println("0. Voltar para o menu");
-        
+
         opcao = utils.escolha(sc, 2);
-        
+
         switch (opcao) {
             case 1:
                 removerDepartamento();
@@ -523,7 +534,7 @@ public class Menu {
             case 2:
                 mostrarDepartamentos();
                 break;
-            case 0: 
+            case 0:
                 iniciarMenu();
                 break;
         }
@@ -535,22 +546,22 @@ public class Menu {
         utils.limpaConsole();
         switch (fim) {
             case 1:
-            editarDepartamentos();
+                editarDepartamentos();
                 break;
-        
+
             case 0:
-            iniciarMenu();
+                iniciarMenu();
                 break;
         }
     }
 
-    private void removerDepartamento(){
+    private void removerDepartamento() {
         Scanner sc = new Scanner(System.in);
-            System.out.println("\n---------- Remover Departamento ----------\n");
+        System.out.println("\n---------- Remover Departamento ----------\n");
         System.out.println("Digite o nome do departamento que deseja remover: ");
         String nome = sc.nextLine();
         EnumSet<Departamento> departamentos = EnumSet.allOf(Departamento.class);
-        if (departamentos.remove(Departamento.valueOf(nome))){
+        if (departamentos.remove(Departamento.valueOf(nome))) {
             System.out.println("Departamento removido com sucesso!");
         } else {
             System.out.println("Departamento não existe!");
@@ -558,7 +569,7 @@ public class Menu {
         sc.close();
     }
 
-    private void mostrarDepartamentos(){
+    private void mostrarDepartamentos() {
         EnumSet<Departamento> departamentos = EnumSet.allOf(Departamento.class);
         System.out.println("Departamentos: ");
         for (Departamento departamento : departamentos) {
@@ -566,5 +577,4 @@ public class Menu {
         }
     }
 
-    
 }

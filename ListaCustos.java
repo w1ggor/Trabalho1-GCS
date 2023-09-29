@@ -7,7 +7,7 @@ public class ListaCustos {
     private static ArrayList<Custo> listaCustos = new ArrayList<>();
 
     public ListaCustos() {
-        if (listaCustos.isEmpty()){
+        if (listaCustos.isEmpty()) {
             geraCustos.geraCustos(listaCustos, "custos.csv");
         }
     }
@@ -20,7 +20,8 @@ public class ListaCustos {
         this.listaCustos.sort(new Comparator<Custo>() {
             public int compare(Custo o1, Custo o2) {
                 return o1.getData().compareTo(o2.getData());
-            }});
+            }
+        });
 
         return this.listaCustos;
     }
@@ -47,14 +48,14 @@ public class ListaCustos {
     public double somaCustosDepartamento(Departamento departamento) {
         double somaCusto = 0;
         LocalDate hoje = LocalDate.now();
-    
+
         for (Custo c : listaCustos) {
             if (c.getDepartamento() == departamento) {
                 LocalDate dataCusto = c.getData();
                 LocalDate tresMesesAtras = hoje.minusMonths(3);
-                    if (dataCusto.isAfter(tresMesesAtras) || dataCusto.isEqual(tresMesesAtras)) {
-                        somaCusto += c.getValor();
-                    }
+                if (dataCusto.isAfter(tresMesesAtras) || dataCusto.isEqual(tresMesesAtras)) {
+                    somaCusto += c.getValor();
+                }
             }
         }
         return somaCusto;
@@ -82,7 +83,24 @@ public class ListaCustos {
             }
         }
         for (int j = 0; j < 3; j++) {
-            System.out.println(j+1 + " - "  + funcionarios.get(j).getNome() + " = " + " R$ " + custos.get(j));
+            System.out.println(j + 1 + " - " + funcionarios.get(j).getNome() + " = " + " R$ " + custos.get(j));
+        }
+    }
+
+    public void excluiCusto() {
+        if (!listaCustos.isEmpty()) {
+            listaCustos.sort(new Comparator<Custo>() {
+                public int compare(Custo o1, Custo o2) {
+                    //Custos ordenados por data
+                    return o2.getData().compareTo(o1.getData());
+                }
+            });
+            //Remove o custo mais recente (primeiro elemento da lista)
+            System.out.println("O custo mais recente foi removido com sucesso!");
+            System.out.println("\n" + listaCustos.get(0).toString());
+            listaCustos.remove(0);
+        } else {
+            System.out.println("A lista de custos está vazia. Nenhum custo para excluir.");
         }
     }
 }
