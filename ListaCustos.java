@@ -82,7 +82,7 @@ public class ListaCustos {
             }
         }
         for (int j = 0; j < 3; j++) {
-            System.out.println(j+1 + " - "  + funcionarios.get(j).getNome() + " = " + custos.get(j) + " R$");
+            System.out.println(j+1 + " - "  + funcionarios.get(j).getNome() + " = " + " R$ " + custos.get(j));
         }
     }
 }
