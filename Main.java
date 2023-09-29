@@ -9,6 +9,9 @@ public class Main {
         Menu menu = new Menu();
         menu.listaFuncionarios.AddFuncionario(funcionario);
         menu.iniciarMenu();
-        System.out.println(menu.listaFuncionarios);
+        if(!menu.sair()){
+            System.out.println(menu.listaFuncionarios);
+        }
+        
     }
 }
