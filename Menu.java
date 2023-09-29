@@ -16,15 +16,18 @@ public class Menu {
         
         while(true){
             while (id == 0 && !sair) {
+                int cont = 1;
+                System.out.println("\n------------------------ Lista de Funcionários --------------------\n");
                 for (Funcionario f : listaFuncionarios.getListaFuncionarios()) {
-                    System.out.println(listaFuncionarios.toString(f) + "\n");
+                    System.out.println(cont + " - "+ listaFuncionarios.toString(f) + "\n");
+                    cont++;
                 }
                 boolean validado = false;
                 do {
                     System.out.println("Informe o número de matricula do funcionário que deseja acessar: (Digite Sair para fechar)");
                     var validacao = sc.nextLine();
 
-                    if(validacao.equals("Sair") || validacao.equals("sair") || validacao.equals("SAIR")){
+                    if(validacao.equalsIgnoreCase("sair")){
                         sair = true;
                         break;
                     }
