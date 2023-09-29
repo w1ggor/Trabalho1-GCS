@@ -21,7 +21,7 @@ public class Menu {
                 System.out.println("Informe o numero de matricula do funcionario que deseja acessar: ");
                 var validacao = sc.nextLine();
 
-                if (validacao.matches(".*[a-zA-Z\\p{P}].*")){
+                if (!validacao.matches("\\d+")){
                     System.out.println("----- A matricula deve conter apenas numeros!-----\n");
                     validado = false;
                 }else if(listaFuncionarios.getFuncionarioByMatricula(Integer.parseInt(validacao)) == null){
@@ -406,10 +406,26 @@ public class Menu {
         Scanner sc = new Scanner(System.in);
         System.out.println("\n---------- Criar Funcionario ----------\n");
 
-        System.out.println("Digite o nome do funcionario:");
-        String nome = sc.nextLine();
-        System.out.println("Digite o numero de matricula:");
-        String nroMatricula = sc.nextLine();
+        boolean validado = false;
+        String nome = "";
+        do {
+            System.out.println("Digite o nome do funcionario:");
+            nome = sc.nextLine();
+            if (!nome.matches("[a-zA-Z]+") || nome == ""){
+                System.out.println("----- O nome nao pode conter numeros ou caracteres especiais! -----\n");
+            }else validado = true;
+        }while (!validado);
+
+        validado = false;
+        String nroMatricula;
+        do {
+            System.out.println("Digite o numero de matricula:");
+            nroMatricula = sc.nextLine();
+            if(!nroMatricula.matches("\\d+")){
+                System.out.println("----- A matricula deve conter apenas numeros! -----\n");
+            }else validado = true;
+        }while (!validado);
+
         System.out.println("Selecione o departamento");
         System.out.println("1. Compras");
         System.out.println("2. Vendas");
