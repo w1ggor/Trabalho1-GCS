@@ -1,7 +1,17 @@
-import java.util.*;
-
 public class Main {
     public static void main(String[] args) {
-        System.out.println("teste");
+        //teste
+        Funcionario funcionario = new Funcionario("12345", "João", Departamento.Engenharia);
+        // System.out.println(funcionario.toString());
+
+
+
+        Menu menu = new Menu();
+        menu.listaFuncionarios.AddFuncionario(funcionario);
+        menu.iniciarMenu();
+        if(!menu.sair()){
+            System.out.println(menu.listaFuncionarios);
+        }
+        
     }
 }
