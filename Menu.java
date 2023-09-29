@@ -116,7 +116,7 @@ public class Menu {
         }
 
         if (listaCustos.getListaCustos().size() == 0) {
-            System.out.println("Não há custos para alterar!");
+            System.out.println("Custo não encontrado!");
         } else {
             for (Custo c : listaCustos.getListaCustos()) {
                 if (c.getDescricao().contains(descricao)) {
@@ -173,21 +173,27 @@ public class Menu {
                             switch (dep) {
                                 case 1:
                                     c.setDepartamento(Departamento.RH);
+                                    System.out.println("Departamento atualizado!");
                                     break;
                                 case 2:
                                     c.setDepartamento(Departamento.Compras);
+                                    System.out.println("Departamento atualizado!");
                                     break;
                                 case 3:
                                     c.setDepartamento(Departamento.Vendas);
+                                    System.out.println("Departamento atualizado!");
                                     break;
                                 case 4:
                                     c.setDepartamento(Departamento.Expedicao);
+                                    System.out.println("Departamento atualizado!");
                                     break;
                                 case 5:
                                     c.setDepartamento(Departamento.Engenharia);
+                                    System.out.println("Departamento atualizado!");
                                     break;
                                 case 6:
                                     c.setDepartamento(Departamento.Producao);
+                                    System.out.println("Departamento atualizado!");
                                     break;
                                 default:
                                     System.out.println("Opção inválida!");
@@ -199,15 +205,13 @@ public class Menu {
                             ;
                     }
 
-                } else {
-                    System.out.println("Custo não encontrado");
                 }
             }
         }
         op=1;
         while(op==1){
             System.out.println("");
-            System.out.println("1. Editar novamente");
+            System.out.println("1. Voltar para edição de custo");
             System.out.println("-");
             System.out.println("0. Voltar para o menu");
             int fim = utils.escolha(sc, 1);
