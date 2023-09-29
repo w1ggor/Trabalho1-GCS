@@ -59,4 +59,30 @@ public class ListaCustos {
         }
         return somaCusto;
     }
+
+    public void funcionariosComMaiorCusto() {
+        ArrayList<Funcionario> funcionarios = new ArrayList<>();
+        ArrayList<Double> custos = new ArrayList<>();
+        double custo;
+        int i = 0;
+        for (Custo c : listaCustos) {
+            if (i < 3) {
+                funcionarios.add(c.getFuncionario());
+                custos.add(c.getValor());
+                i++;
+            } else {
+                custo = c.getValor();
+                for (int j = 0; j < 3; j++) {
+                    if (custo > custos.get(j)) {
+                        custos.set(j, custo);
+                        funcionarios.set(j, c.getFuncionario());
+                        break;
+                    }
+                }
+            }
+        }
+        for (int j = 0; j < 3; j++) {
+            System.out.println(j+1 + " - "  + funcionarios.get(j).getNome() + " = " + " R$ " + custos.get(j));
+        }
+    }
 }
