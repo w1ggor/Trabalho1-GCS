@@ -426,13 +426,22 @@ public class Menu {
             }else validado = true;
         }while (!validado);
 
+        int selecionaDepartamento = 999;
+        validado = false;
+        do{
         System.out.println("Selecione o departamento");
         System.out.println("1. Compras");
         System.out.println("2. Vendas");
         System.out.println("3. Expedicao");
         System.out.println("4. Engenharia");
         System.out.println("5. Producao");
-        int selecionaDepartamento = sc.nextInt();
+        selecionaDepartamento = sc.nextInt();
+
+        if (selecionaDepartamento < 1 || selecionaDepartamento > 5){
+            System.out.println("----- Opcao invalida! -----\n");
+        }else validado = true;
+
+        }while (!validado);
 
         Funcionario funcionario = null;
 
@@ -452,13 +461,10 @@ public class Menu {
             case 5:
                 funcionario = new Funcionario(nroMatricula, nome, Departamento.Producao);
                 break;
-            default:
-                System.out.println("Opcao invalida.");
-                break;
         }
         listaFuncionarios.AddFuncionario(funcionario);
 
-        System.out.println("\n Adicionado com sucesso \n");
+        System.out.println("\nAdicionado com sucesso \n");
         System.out.println("1. Adicionar outro");
         System.out.println("-");
         System.out.println("0. Voltar para o menu");
