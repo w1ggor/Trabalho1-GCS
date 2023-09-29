@@ -108,8 +108,8 @@ public class Menu {
         System.out.println("Informe a descrição do custo que deseja editar: (Digite Sair para fechar)");
         String descricao = in.nextLine();
 
-        if(descricao.equals("Sair") || descricao.equals("sair") || descricao.equals("SAIR")){
-            sair = true;
+        if(descricao.equalsIgnoreCase("sair")){
+            iniciarMenu();
         }
 
         if (listaCustos.getListaCustos().size() == 0) {
@@ -123,7 +123,6 @@ public class Menu {
                     System.out.println("3. Data");
                     System.out.println("4. Categoria");
                     System.out.println("5. Departamento");
-                    System.out.println("6. Editar custo");
                     System.out.println("-");
                     System.out.println("0. Voltar");
                     op = utils.escolha(in, 6);
@@ -202,8 +201,8 @@ public class Menu {
                 }
             }
         }
-        in.close();
-        if(!sair){
+        op=1;
+        while(op==1){
             System.out.println("");
             System.out.println("1. Editar novamente");
             System.out.println("-");
