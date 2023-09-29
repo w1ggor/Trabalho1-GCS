@@ -16,13 +16,22 @@ public class Menu {
             for (Funcionario f : listaFuncionarios.getListaFuncionarios()) {
                 System.out.println(listaFuncionarios.toString(f)+ "\n");
             }
-            System.out.println("Informe o numero de matricula do funcionario que deseja acessar: ");
-            id = sc.nextInt();
+            boolean validado = false;
+            do {
+                System.out.println("Informe o numero de matricula do funcionario que deseja acessar: ");
+                var validacao = sc.nextLine();
 
-            if(listaFuncionarios.getFuncionarioByMatricula(id) == null){
-                System.out.println("----- Matricula Inválida! Informe uma matrícula correta!-----\n");
-                id = 0;
-            }               
+                if (validacao.matches(".*[a-zA-Z\\p{P}].*")){
+                    System.out.println("----- A matricula deve conter apenas numeros!-----\n");
+                    validado = false;
+                }else if(listaFuncionarios.getFuncionarioByMatricula(Integer.parseInt(validacao)) == null){
+                    System.out.println("----- Matricula Inválida! Informe uma matrícula correta!-----\n");
+                    id = 0;
+                }else{
+                    id = Integer.parseInt(validacao);
+                    validado = true;
+                }
+            }while (!validado);
         };
 
         utils.limpaConsole();
