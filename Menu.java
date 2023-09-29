@@ -194,7 +194,7 @@ public class Menu {
                         case 0:
                             utils.limpaConsole();
                             editarCusto();
-                            ;
+                            
                     }
 
                 } else {
@@ -423,6 +423,113 @@ public class Menu {
     }
 
     private void registrarCusto() {
+        Scanner sc = new Scanner(System.in);
+        int escolha = 1;
+        while(escolha == 1){
+            utils.limpaConsole();
+            System.out.print("\nDigite o valor do custo: ");
+            double custo = sc.nextDouble();
+            System.out.print("\nDigite a descrição do custo: ");
+            sc.nextLine();
+            String descricao = sc.nextLine();
+    
+            System.out.print("\nDigite a data do custo (Formato: dd/mm/aaaa):  ");
+            String data = sc.nextLine();
+
+            int dia = Integer.parseInt(data.substring(0, 1));
+            int mes = Integer.parseInt(data.substring(3, 4));
+            if(data.substring(0,1).charAt(0) == '0'){
+                dia = Integer.parseInt(String.valueOf(data.charAt(1)));
+            }
+            if(data.substring(3,4).charAt(0) == '0'){
+                mes = Integer.parseInt(String.valueOf(data.charAt(4)));
+            }
+            int ano = Integer.parseInt(data.substring(6, 9));
+
+            LocalDate datas = LocalDate.of(ano, mes, dia);
+            
+            System.out.print("\nDigite a categoria do custo: ");
+            String categoria = sc.nextLine();
+
+            Funcionario funcio = new Funcionario("", "", Departamento.Compras);
+            boolean achou = false;
+            while(!achou){
+                System.out.print("\nDigite o nome do funcionário responsável: ");
+                String func = sc.nextLine();
+                for(Funcionario f : listaFuncionarios.getListaFuncionarios()){
+                    if(f.getNome().equals(func)){
+                        funcio = f;
+                        achou = true;
+                    }
+                }
+                if(funcio.getNome().equals("")){
+                    System.out.println("Funcionário não encontrado! Tente novamente");
+                }
+            }
+
+            System.out.println("\nSelecione o departamento");
+            System.out.println("1. RH");
+            System.out.println("2. Compras");
+            System.out.println("3. Vendas");
+            System.out.println("4. Expedicao");
+            System.out.println("5. Engenharia");
+            System.out.println("6. Producao");
+
+            int opcao = sc.nextInt();
+
+            switch (opcao) {
+                case 1:
+                    Custo c = new Custo(custo, descricao, datas, categoria, funcio, Departamento.RH);
+                    listaCustos.AddCusto(c);
+                    System.out.println("Custo criado com sucesso!\n");
+                    System.out.println(c.toString());
+                    break;
+                case 2:
+                    Custo cus = new Custo(custo, descricao, datas, categoria, funcio, Departamento.Compras);
+                    listaCustos.AddCusto(cus);
+                    System.out.println("Custo criado com sucesso!\n");
+                    System.out.println(cus.toString());
+                    break;
+                case 3:
+                    Custo cust = new Custo(custo, descricao, datas, categoria, funcio, Departamento.Vendas);
+                    listaCustos.AddCusto(cust);
+                    System.out.println("Custo criado com sucesso!\n");
+                    System.out.println(cust.toString());
+                    break;
+                case 4:
+                    Custo l = new Custo(custo, descricao, datas, categoria, funcio, Departamento.Expedicao);
+                    listaCustos.AddCusto(l);
+                    System.out.println("Custo criado com sucesso!\n");
+                    System.out.println(l.toString());
+                    break;
+                case 5:
+                    Custo s = new Custo(custo, descricao, datas, categoria, funcio, Departamento.Engenharia);
+                    listaCustos.AddCusto(s);
+                    System.out.println("Custo criado com sucesso!\n");
+                    System.out.println(s.toString());
+                    break;
+                case 6:
+                    Custo e = new Custo(custo, descricao, datas, categoria, funcio, Departamento.Producao);
+                    listaCustos.AddCusto(e);
+                    System.out.println("Custo criado com sucesso!\n");
+                    System.out.println(e.toString());
+                    break;
+                default:
+                    System.out.println("Opção inválida!");
+                }
+
+            System.out.println("\nAdicionado com sucesso \n");
+            System.out.println("1. Adicionar outro");
+            System.out.println("-");
+            System.out.println("0. Voltar para o menu");
+
+            escolha = sc.nextInt();
+        }
+
+        if(escolha == 0){
+            iniciarMenu();
+        }
+        sc.close();
     }
 
     private void criarFuncionario() {
