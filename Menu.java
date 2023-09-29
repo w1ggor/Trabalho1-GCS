@@ -10,78 +10,93 @@ public class Menu {
     ListaCustos listaCustos = new ListaCustos();
 
     int id = 0;
+    boolean sair = false;
 
     public void iniciarMenu() {
-
-        while (id == 0) {
-            for (Funcionario f : listaFuncionarios.getListaFuncionarios()) {
-                System.out.println(listaFuncionarios.toString(f) + "\n");
-            }
-            boolean validado = false;
-            do {
-                System.out.println("Informe o numero de matricula do funcionario que deseja acessar: ");
-                var validacao = sc.nextLine();
-
-                if (!validacao.matches("\\d+")) {
-                    System.out.println("----- A matricula deve conter apenas numeros!-----\n");
-                    validado = false;
-                } else if (listaFuncionarios.getFuncionarioByMatricula(Integer.parseInt(validacao)) == null) {
-                    System.out.println("----- Matricula Inválida! Informe uma matrícula correta!-----\n");
-                    id = 0;
-                } else {
-                    id = Integer.parseInt(validacao);
-                    validado = true;
+        
+        while(true){
+            while (id == 0 && !sair) {
+                for (Funcionario f : listaFuncionarios.getListaFuncionarios()) {
+                    System.out.println(listaFuncionarios.toString(f) + "\n");
                 }
-            } while (!validado);
-        }
-        ;
+                boolean validado = false;
+                do {
+                    System.out.println("Informe o número de matricula do funcionário que deseja acessar: (Digite Sair para fechar)");
+                    var validacao = sc.nextLine();
 
-        utils.limpaConsole();
+                    if(validacao.equals("Sair") || validacao.equals("sair") || validacao.equals("SAIR")){
+                        sair = true;
+                        break;
+                    }
 
-        System.out.println("Ola, " + listaFuncionarios.getFuncionarioByMatricula(id).getNome());
-        System.out.println("Selecione uma das opcoes abaixo:");
-        System.out.println("1. Criar funcionario");
-        System.out.println("2. Editar departamentos");
-        System.out.println("3. Registrar um custo");
-        System.out.println("4. Editar custo");
-        System.out.println("5. Pesquisa de custo");
-        System.out.println("6. Excluir custo");
-        System.out.println("7. Painel de métricas");
-        System.out.println("-");
-        System.out.println("0. Trocar usuário");
+                    if (!validacao.matches("\\d+")) {
+                        System.out.println("----- A matrícula deve conter apenas números!-----\n");
+                        validado = false;
+                    } else if (listaFuncionarios.getFuncionarioByMatricula(Integer.parseInt(validacao)) == null) {
+                        System.out.println("----- Matrícula Inválida! Informe uma matrícula correta!-----\n");
+                        id = 0;
+                    } else {
+                        id = Integer.parseInt(validacao);
+                        validado = true;
+                    }
+                } while (!validado);
+            }
+            if(sair){
+                break;
+            }
+            
 
-        int opcao = utils.escolha(sc, 7);
+            utils.limpaConsole();
 
-        utils.limpaConsole();
+            System.out.println("Olá, " + listaFuncionarios.getFuncionarioByMatricula(id).getNome());
+            System.out.println("Selecione uma das opcoes abaixo:");
+            System.out.println("1. Criar funcionário");
+            System.out.println("2. Editar departamentos");
+            System.out.println("3. Registrar um custo");
+            System.out.println("4. Editar custo");
+            System.out.println("5. Pesquisa de custo");
+            System.out.println("6. Excluir custo");
+            System.out.println("7. Painel de métricas");
+            System.out.println("8. Fechar programa");
+            System.out.println("-");
+            System.out.println("0. Trocar usuário");
 
-        switch (opcao) {
-            case 1:
-                criarFuncionario();
-                break;
-            case 2:
-                editarDepartamentos();
-                break;
-            case 3:
-                registrarCusto();
-                break;
-            case 4:
-                editarCusto();
-                break;
-            case 5:
-                pesquisaCusto();
-                break;
-            case 6:
-                excluirCusto();
-                break;
-            case 7:
-                gerarPainelMetricas();
-                break;
-            case 0:
-                id = 0;
-                iniciarMenu();
-                break;
-            default:
-                System.out.println("Opcão inválida");
+            int opcao = utils.escolha(sc, 8);
+
+            utils.limpaConsole();
+
+            switch (opcao) {
+                case 1:
+                    criarFuncionario();
+                    break;
+                case 2:
+                    editarDepartamentos();
+                    break;
+                case 3:
+                    registrarCusto();
+                    break;
+                case 4:
+                    editarCusto();
+                    break;
+                case 5:
+                    pesquisaCusto();
+                    break;
+                case 6:
+                    excluirCusto();
+                    break;
+                case 7:
+                    gerarPainelMetricas();
+                    break;
+                case 8: 
+                    sair = true;
+                    break;
+                case 0:
+                    id = 0;
+                    iniciarMenu();
+                    break;
+                default:
+                    System.out.println("Opcão inválida");
+            }
         }
         sc.close();
     }
@@ -90,8 +105,13 @@ public class Menu {
         Scanner in = new Scanner(System.in);
         int op = 0;
         System.out.println("\n---------- Editar Custos ----------\n");
-        System.out.println("Informe a descrição do custo que deseja editar: ");
+        System.out.println("Informe a descrição do custo que deseja editar: (Digite Sair para fechar)");
         String descricao = in.nextLine();
+
+        if(descricao.equals("Sair") || descricao.equals("sair") || descricao.equals("SAIR")){
+            sair = true;
+        }
+
         if (listaCustos.getListaCustos().size() == 0) {
             System.out.println("Não há custos para alterar!");
         } else {
@@ -183,22 +203,23 @@ public class Menu {
             }
         }
         in.close();
-        System.out.println("");
-        System.out.println("1. Editar novamente");
-        System.out.println("-");
-        System.out.println("0. Voltar para o menu");
-        int fim = utils.escolha(sc, 1);
-        utils.limpaConsole();
-        switch (fim) {
-            case 1:
-                editarCusto();
-                break;
+        if(!sair){
+            System.out.println("");
+            System.out.println("1. Editar novamente");
+            System.out.println("-");
+            System.out.println("0. Voltar para o menu");
+            int fim = utils.escolha(sc, 1);
+            utils.limpaConsole();
+            switch (fim) {
+                case 1:
+                    editarCusto();
+                    break;
 
-            case 0:
-                iniciarMenu();
-                break;
+                case 0:
+                    iniciarMenu();
+                    break;
+            }
         }
-
     }
 
     private void excluirCusto() {
@@ -575,6 +596,10 @@ public class Menu {
         for (Departamento departamento : departamentos) {
             System.out.println(departamento);
         }
+    }
+
+    public boolean sair(){
+        return sair;
     }
 
 }
